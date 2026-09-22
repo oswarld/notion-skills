@@ -5,6 +5,8 @@ description: Draft a customer support response from a customer question and conf
 
 # Customer reply
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Identify the customer's problem, desired resolution, and relevant confirmed policy. Separate the customer's statements from verified order or account status. Do not infer delivery dates, refund eligibility, exception approval, or account changes from general policy alone.
 
 Acknowledge the concrete concern and explain the next useful step. Keep the reply concise and respectful without adding excessive apologies. If a needed fact is missing, provide a conditional draft or ask the operator to check it. Do not invent a response deadline or promise that an investigation has already occurred.

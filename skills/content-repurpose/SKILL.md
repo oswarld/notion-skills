@@ -5,6 +5,8 @@ description: Adapt an existing source text into specified channels or formats wh
 
 # Content repurpose
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Use the source as the factual boundary. Identify its main message, audience, claims, qualifications, and phrases the user wants preserved. Follow supplied channel lengths and style constraints. If a channel limit is unknown, ask or use a clearly stated working length rather than asserting a platform rule.
 
 Rebuild the structure for each target: a short social post, newsletter opening, article outline, or another requested format. Keep the essential qualifications even when shortening. Do not add performance numbers, client stories, scarcity, discounts, quotes, or unsupported calls to action.

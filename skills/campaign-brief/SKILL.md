@@ -5,6 +5,8 @@ description: Convert a campaign idea into a concrete brief covering audience, me
 
 # Campaign brief
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Separate the business goal from the audience action that would contribute to it. Use confirmed offer details and constraints. Capture the target audience, value proposition, channel choices, time window, available assets, and budget only when provided.
 
 Create a brief that connects message, audience action, distribution, and measurement. For each execution item, identify a responsible role or mark ownership undecided. Explain what must exist first, such as a working signup page or reviewed product facts.

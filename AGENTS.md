@@ -4,8 +4,9 @@ This file contains instructions for AI agents working with this repository.
 
 ## Configuring the sync
 
-Configuration is **environment variables only** — `.env` for local runs, repo
-variables + secrets for the scheduled workflow. There is no config file to
+Configuration is **environment variables only** — `.env` for local runs.
+This repository has no scheduled workflow. `bun run setup` only prints local
+configuration guidance; `bun run sync` explicitly publishes to the target repo. There is no config file to
 create. A leftover `config.json` is no longer read at all: the sync only
 *detects* one, and fails with the variable name that replaced each key it still
 sets so an old deployment can't silently run on ignored settings.
@@ -173,19 +174,8 @@ see [`.env.example`](./.env.example) for the full list. The data source id is
 not used to read skills; it's recorded in each plugin's marker as the
 back-reference into Notion.
 
-For the scheduled workflow, the same settings go on the repo the workflow runs
-in — non-secrets as **variables**, tokens as **secrets**:
-
-```bash
-REPO=<owner>/<sync-script-repo>
-gh variable set SKILLS_GITHUB_REPO --repo "$REPO" --body "<owner>/<skills-repo>"
-gh variable set NOTION_ENV --repo "$REPO" --body prod
-gh secret set NOTION_API_TOKEN --repo "$REPO"
-gh secret set GH_PUSH_TOKEN --repo "$REPO"
-```
-
-`GITHUB_REPO` and `GITHUB_BRANCH` are stored as `SKILLS_GITHUB_*` because GitHub
-refuses variable names starting with `GITHUB_`; the workflow maps them back.
+Do not recreate GitHub Actions, set workflow secrets, or push this repository as
+part of setup. The former scheduled workflow was intentionally removed.
 
 ### Step 6: Confirm the skills are visible to the API
 

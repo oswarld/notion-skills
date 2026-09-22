@@ -59,7 +59,7 @@ export function createWebApp(config: WebConfig | null, dependencies: Dependencie
       if (!skill) return html(message("스킬을 찾지 못했어요", "목록에서 다른 스킬을 골라 주세요.", "/catalog", "스킬 둘러보기"), 404);
       if (match?.[2]) {
         const archive = match[2] === "download";
-        return new Response(archive ? new Uint8Array(skillArchive(skill)) : skill.markdown, { headers: {
+        return new Response(archive ? new Uint8Array(skillArchive(skill)) : skill.standaloneMarkdown, { headers: {
           ...securityHeaders,
           "Content-Type": archive ? "application/zip" : "text/markdown; charset=utf-8",
           "Content-Disposition": `attachment; filename="${skill.id}${archive ? ".zip" : "-SKILL.md"}"`,

@@ -5,6 +5,8 @@ description: Turn progress notes into a concise stakeholder report separating co
 
 # Status report
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Identify the reporting period and audience. Distinguish completed and accepted deliverables from drafts, meetings, effort, and planned work. Do not upgrade "written" to "reviewed," "sent" to "approved," or "started" to "done."
 
 Lead with decisions or blockers that need attention when those are the purpose of the report. Summarize outcomes, ongoing work, schedule or scope risks, support needed, and next steps. Keep owners and due dates tied to the provided record.

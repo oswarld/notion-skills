@@ -5,6 +5,8 @@ description: Synthesize supplied sources to answer a research question while ret
 
 # Research summary
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Start with the question the user is trying to answer. Build a source map using the supplied titles, dates, links, and relevant passages. If only inaccessible links are supplied, request excerpts or use available authorized browsing; never imply the contents were read.
 
 Distinguish direct evidence, source assertions, and your inference. Compare like with like: align time periods, definitions, units, and populations before combining numbers. Do not merge interview counts, support tickets, and unique users into one denominator. Preserve contradictions and uncertainty.

@@ -5,6 +5,8 @@ description: Turn a described recurring workflow into a usable operating procedu
 
 # Operating procedure
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Identify the workflow trigger, intended operator, inputs, access prerequisites, and definition of completion. Preserve the existing process unless the user asks to redesign it. Separate documented steps from proposed improvements.
 
 Write steps as observable actions with the relevant input and expected result. Keep prerequisites before dependent actions. Do not invent interface labels, commands, URLs, permissions, or policies. If a step cannot be made executable from the source, mark the missing detail and name the question to resolve.

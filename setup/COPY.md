@@ -1,3 +1,10 @@
+> Current project behavior: the scheduled GitHub Action has been removed.
+> `bun run setup` prints local configuration guidance and performs no writes.
+> `bun run dry-run` previews publication; `bun run sync` explicitly publishes.
+> The Actions deployment and six-phase wizard notes below describe the upstream
+> implementation and must not be followed for this product. See README.md and
+> web/README.md for the current browser product and operator setup.
+
 # Setup copy
 
 This is the editable copy deck for `bun run setup`. Curly-brace values such as `{skills_repo}` are filled in at runtime. The source file for each section is shown so approved edits can be applied without searching through concatenated strings.

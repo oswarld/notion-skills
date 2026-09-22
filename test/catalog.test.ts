@@ -3,6 +3,8 @@ import { strFromU8, unzipSync } from "fflate";
 import { parse } from "yaml";
 import { createWebApp } from "../web/app.ts";
 import { audiences, catalog, filterSkills } from "../web/catalog.ts";
+import { parseDecisionGuide } from "../web/decision-guide.ts";
+import { skillPage } from "../web/catalog-views.ts";
 
 const app = createWebApp(null, { fetch: async () => { throw new Error("The public catalog must not call Notion."); } });
 const request = (path: string, method = "GET") => app(new Request(`https://skills.example.com${path}`, { method }));
@@ -17,6 +19,9 @@ describe("public starter skills", () => {
       expect(frontmatter.description.length).toBeGreaterThan(20);
       expect(skill.instructions).not.toContain("[TODO");
       expect(skill.inputs.every((input) => input.sample.trim() && input.label.trim())).toBe(true);
+      expect(skill.markdown).toContain("references/decision-guide.yaml");
+      expect(skill.decisionGuide.questions.length).toBeGreaterThan(0);
+      expect(skill.standaloneMarkdown).not.toContain("references/decision-guide.yaml");
     }
   });
 
@@ -44,6 +49,9 @@ describe("public starter skills", () => {
       expect(detail).toContain(`href="/catalog/${skill.id}/download"`);
       expect(detail).not.toContain('<form');
       expect(detail).toContain('readonly');
+      expect(detail).toContain('id="decision-context"');
+      expect(detail).toContain('value="notion-page"');
+      expect(detail).toContain('type="module" src="/catalog.js"');
       expect(response.headers.get("set-cookie")).toBeNull();
     }
   });
@@ -55,9 +63,39 @@ describe("public starter skills", () => {
       expect(response.headers.get("content-type")).toBe("application/zip");
       expect(response.headers.get("content-disposition")).toBe(`attachment; filename="${skill.id}.zip"`);
       const files = unzipSync(new Uint8Array(await response.arrayBuffer()));
-      expect(Object.keys(files)).toEqual([`${skill.id}/SKILL.md`]);
+      const paths = [`${skill.id}/SKILL.md`, `${skill.id}/references/decision-guide.yaml`];
+      expect(Object.keys(files)).toEqual(paths);
       expect(strFromU8(files[`${skill.id}/SKILL.md`]!)).toBe(skill.markdown);
-      expect(await (await request(`/catalog/${skill.id}/source`)).text()).toBe(skill.markdown);
+      const reference = strFromU8(files[`${skill.id}/references/decision-guide.yaml`]!);
+      expect(parseDecisionGuide(reference)).toEqual(skill.decisionGuide);
+      for (const item of skill.decisionGuide.questions) {
+        expect(skill.instructions).toContain(item.question);
+        expect(skill.instructions).toContain(item.criterion);
+        expect(skill.instructions).toContain(item.ifUnknown);
+      }
+      const standalone = await (await request(`/catalog/${skill.id}/source`)).text();
+      expect(standalone).toBe(skill.standaloneMarkdown);
+      expect(standalone).not.toContain("references/decision-guide.yaml");
+    }
+  });
+
+  test("decision criteria remain visible without JavaScript and are escaped as text", async () => {
+    const skill = catalog.find((item) => item.id === "meeting-notes")!;
+    const detail = await (await request(`/catalog/${skill.id}`)).text();
+    expect(detail).toContain('id="decision-context"');
+    for (const question of skill.decisionGuide.questions) expect(detail).toContain(question.question);
+    const hostile = '<img src=x onerror="alert(1)">';
+    const rendered = skillPage({ ...skill, decisionGuide: {
+      questions: [{ label: hostile, question: hostile, criterion: hostile, ifUnknown: hostile }],
+      output: [hostile],
+    } });
+    expect(rendered).not.toContain(hostile);
+    expect(rendered).toContain("&lt;img");
+  });
+
+  test("rejects incomplete decision guides instead of omitting unknown handling", () => {
+    for (const source of ["", "null", "[]", "questions: []\noutput: [Summary]", "questions: [{label: Action, question: Is it agreed?, criterion: Explicit agreement}]\noutput: [Summary]", "questions: [{}]\noutput: [1]"]) {
+      expect(() => parseDecisionGuide(source)).toThrow();
     }
   });
 

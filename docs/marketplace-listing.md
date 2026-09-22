@@ -2,14 +2,22 @@
 
 Draft prepared on 2026-09-22 for the user's existing Notion connection.
 
-Current status on 2026-09-22: the user reported submitting the listing and
+Latest listing status reported by the user on 2026-09-22: they submitted the listing and
 provided a screenshot showing **Skills / Awaiting approval**. The starter
 catalog, shared policy footer, and review-draft `/privacy` and `/terms` pages are
 now deployed at https://skills.inlevel9.com. Both policy pages and their footer
-links were verified in production. Policy adoption and OAuth verification remain
-unfinished; publishing the draft pages does not resolve those items.
+links were verified in production. Marketplace approval has not been rechecked.
+Policy adoption remains unfinished; publishing the draft pages does not resolve it.
 
-The notes below record the earlier draft-preparation state.
+On 2026-09-23, the existing deployment completed a real OAuth callback, Skills API
+listing, and verification archive download. See
+[verification evidence](decision-guide-verification.md). The new decision-guide
+catalog changes remain local and were not deployed during this verification.
+
+## Historical draft-preparation notes
+
+The notes below record the earlier preparation state, before submission and the
+production checks above. Their deployment and submission statements are historical.
 
 - Form: https://app.notion.com/profile/connections/form/new?integrationId=3e3d872b-594c-811e-bc79-00378bdc7883
 - Existing connection name: Notion Skills (preserved).

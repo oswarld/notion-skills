@@ -5,6 +5,8 @@ description: Group a supplied set of customer feedback into evidence-backed them
 
 # Customer feedback
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Give each feedback item a stable reference if it lacks one. Group comments by the underlying need or problem, preserving mixed sentiment and important exceptions. Do not treat repeated copies of one comment as independent customers; identify potential duplicates before reporting frequencies.
 
 Report counts only within the supplied dataset and state the denominator. Distinguish comments, incidents, and people. Do not generalize a small or self-selected sample into market prevalence. Separate the customer's wording, your interpretation, and proposed solutions.

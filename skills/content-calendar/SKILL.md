@@ -5,6 +5,8 @@ description: Plan a feasible publishing calendar from an audience, channels, top
 
 # Content calendar
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Identify the intended audience, desired reader action, channels, planning period, available material, and production capacity. Use the supplied publishing cadence; if absent, propose one as a draft assumption rather than implying a commitment.
 
 Organize topics around distinct audience questions. Sequence introductory and deeper material deliberately. Reuse existing assets where appropriate and identify missing assets or expertise. Each planned item should have a channel, topic or working title, main message, intended action, source material, and proposed timing.

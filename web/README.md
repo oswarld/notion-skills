@@ -12,20 +12,35 @@ database, analytics SDK, or additional runtime dependencies.
 
 1. Open `/catalog`, search by job, and optionally filter audience and category.
 2. Open a skill to see required inputs and a clearly labeled authored example.
-3. Fill in material or try the example, then compose and copy a request.
-4. Paste into an existing AI conversation, or download an individual skill ZIP
+3. For every starter skill, inspect the decision questions,
+   criteria, unknown handling, and output structure. Optionally add work-specific
+   priorities or terminology separately from the source material.
+4. Paste material, try the example, or select the current Notion page. Compose and copy a request.
+5. Paste into Notion AI or another existing AI conversation, or download an individual skill ZIP
    for installation in a compatible app such as Claude.
 
 No model runs on this site. Input text is combined in browser memory and is not
 submitted, persisted in local storage, or sent to an external API. Search terms
 are GET parameters and can appear in browser history or hosting logs. The copy
 button has a selection fallback when the clipboard API is unavailable. Editing
-inputs invalidates the old request so users do not copy stale material.
+inputs or additional criteria invalidates the old request so users do not copy stale material.
 
 The source instructions live in `skills/<name>/SKILL.md`; presentation metadata
 is in `catalog-data.ts`. Files are loaded only for predefined catalog IDs, and
 `vercel.json` includes them in the function bundle. The existing `fflate`
 dependency produces each ZIP; no new runtime dependency was introduced.
+
+All 15 decision guides live in `skills/<name>/references/decision-guide.yaml`.
+Every authored catalog entry requires this fixed reference path.
+The loader validates each question's criteria and unknown handling, then uses
+the same reference for the rendered UI, inline prompt instructions, and ZIP.
+The ZIP contains the original `SKILL.md` and its reference. Single-file Markdown
+downloads and composed requests inline the guide and remove the local file link.
+`public/catalog.js` exports the tested, pure `composeRequest` function and initializes
+the DOM separately. Its module script makes no network calls. Current-page mode
+excludes the first (possibly populated but hidden) material field while retaining
+user-authored audience/work conditions. Changing mode or criteria invalidates the
+old request. The site does not retrieve the current Notion page.
 
 ## Notion user flow
 
@@ -106,6 +121,12 @@ The tests exercise the real HTTP handler with a fake Notion transport: state
 binding/expiry, encryption tampering, cross-user isolation, XSS, CSRF,
 pagination, permission failures, signed downloads, and revocation errors. They
 cannot establish workspace Skills API availability or Notion console settings.
+
+On 2026-09-23, the existing production deployment completed a real OAuth
+callback, listed the previously shared verification skill, and downloaded an
+archive containing its `SKILL.md` and expected marker. The new decision-guide
+changes remain local. See [verification evidence](../docs/decision-guide-verification.md)
+for the tested behavior and remaining evaluation boundaries.
 
 ## Security and data lifecycle
 

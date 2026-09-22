@@ -9,23 +9,20 @@ import { buildSync } from "./wire.ts";
 const HELP = `notion-skills-github-sync — publish a Notion workspace's skills as a plugin marketplace
 
 Usage:
-  notion-skills-sync setup            Interactive guided setup (start here)
-  notion-skills-sync setup --ci       Non-interactive mode (for agents/CI)
+  notion-skills-sync setup            Show local sync configuration steps
+  notion-skills-sync setup --ci       Run a real Notion/GitHub integration setup
   notion-skills-sync sync             Sync the workspace's skills to the target repo
   notion-skills-sync sync --dry-run   Show what would change without pushing
   notion-skills-sync update           Merge tool updates from the 'upstream' remote
   notion-skills-sync migrate-config   Copy a legacy config.json into .env + repo variables
   notion-skills-sync help             Show this help
 
-Interactive setup asks everything up front, creates the Notion Skills DB and
-GitHub repos, pauses once while you create two dedicated access tokens (a
-fine-grained GitHub PAT + a Notion integration token), then deploys and
-verifies unattended.
+Default setup only explains local configuration. It does not modify files,
+create remote resources, or publish anything. The advanced setup --ci mode
+creates a Notion Skills database and writes to a GitHub test branch.
 
 Setup flags:
   --ci                    Run non-interactively (no prompts, uses env tokens)
-  --test-run              Real setup end to end, then help delete the created
-                          GitHub repos at the end (interactive mode only)
   --env <env>             Notion environment (dev|stg|prod, default: prod)
   --repo <owner/name>     Skills repo, CI mode only (auto-detected from git remote if omitted)
   --db-name <name>        Name for the Notion Skills DB (default: "Skills")

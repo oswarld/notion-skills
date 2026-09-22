@@ -1,26 +1,24 @@
-# setup/ — the guided setup
+# Local sync setup
 
-`bun run setup` is the one-time, interactive rollout: it creates the Notion
-Skills DB and the two GitHub repos, pauses once while you create two dedicated
-minimal-scope tokens, then deploys the workflow and verifies a real sync end to
-end. `bun run setup --ci` is the same flow without prompts, for agents and CI.
+`bun run setup` prints configuration instructions for `.env`. It performs no
+file edits, database creation, commits, pushes, or GitHub Actions setup.
+The web catalog runs independently with `bun run dev`.
 
-**This is a separate package from the sync core in `src/`, deliberately.** The
-wizard is a human-in-the-loop tool that shells out to the `ntn` and `gh` CLIs and
-lives on browser round-trips; the sync it configures is plain HTTPS against
-Notion and GitHub, with no CLI dependency. So the sync core — `src/notion/`,
-`src/sync/`, `src/target/` — may never import from here, which is what keeps the
-`ntn` install out of CI. `src/cli.ts` is the one exception, and only to dispatch
-the `setup` command. Otherwise the dependency runs one way: `setup/` reads a few
-pure helpers out of `src/` (`config.ts` for the CI variable naming,
-`notion/archive.ts` to zip a sample skill's files, `sync/slugify.ts`).
+Use `bun run dry-run` after configuration, and `bun run sync` only when publishing
+changes to the configured destination repository is intended.
 
-Layout: `index.ts` is the six-phase interactive flow and `steps/` holds one file
-per phase; `non-interactive.ts` is the `--ci` runner. The rest is shared
-plumbing — `exec.ts` (logged subprocesses), `ntn-cli.ts`, `skills-db.ts`,
-`verify-sync.ts` (the dry-run → sync → re-run proof both flows end with),
-`env-file.ts`, `logger.ts`, `spinner.ts`, `guidance.ts`, `handoff.ts`.
+## Advanced integration testing
 
-Every run writes a redacted, crash-proof JSONL log to
-`.notion-sync-setup/setup-<timestamp>.log.jsonl` (gitignored). That file is the
-first thing to read — or share — when a run gets stuck.
+`bun run setup --ci --repo owner/name --db-parent-page <page-id>` is the retained
+integration-test runner. It creates a real typed Skills database and sample
+pages, writes to the `setup-e2e-test` branch of the destination repository, and
+checks sync idempotency. It requires explicit resource-creation authorization
+and dedicated test resources. It does not deploy GitHub Actions.
+
+The runner uses `non-interactive.ts`, `skills-db.ts`, `ntn-cli.ts`, and
+`verify-sync.ts`. Diagnostic JSONL logs are redacted and stored in the ignored
+`.notion-sync-setup/` directory.
+
+`steps/` and `COPY.md` retain the former upstream wizard for reference and helper
+tests. They are not called by the current interactive entry point. Their
+workflow deployment instructions are historical, not the current setup path.

@@ -5,6 +5,8 @@ description: Plan a new team member first week using role outcomes, available le
 
 # Onboarding plan
 
+Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+
 Define what the new teammate should understand or be able to do by the end of the requested period. Use role-relevant goals rather than a generic list of welcome meetings. Capture the available documents, practice tasks, support people, working hours, and access status.
 
 Sequence orientation, observation, small practice, feedback, and reflection. Respect the availability of mentors and reviewers. Link to known materials; mark missing resources instead of inventing internal URLs or policies. Assign confirmed support owners only.
