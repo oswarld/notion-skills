@@ -394,10 +394,9 @@ export async function populateSampleSkills(
  *
  * Deliberately probes the data source rather than the Skills API the sync
  * actually uses: this checks exactly the thing the user was just asked to do
- * (attach the connection), and it isn't gated. Probing `/v1/ai/plugins`
- * here would fail on a workspace without the `public_api_skills_plugins` gate
- * even though the connection step was done correctly — the dry-run later in
- * setup surfaces that case with a message that explains it.
+ * (attach the connection). A successful `/v1/ai/plugins` response alone cannot
+ * prove access to this particular database: inaccessible skills are omitted.
+ * The later dry-run verifies the complete plugin publication flow.
  */
 export async function tokenCanReadDataSource(
   logger: SetupLogger,

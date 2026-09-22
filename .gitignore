@@ -10,3 +10,8 @@ dist/
 
 # wizard setup logs
 .notion-sync-setup/
+
+# deployment metadata and environment snapshots
+.vercel/
+.env*
+!.env.example

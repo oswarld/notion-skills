@@ -189,7 +189,8 @@ refuses variable names starting with `GITHUB_`; the workflow maps them back.
 
 ### Step 6: Confirm the skills are visible to the API
 
-The sync reads `GET /v1/ai/plugins` with `NOTION_API_TOKEN`. Two things
+The sync reads `GET /v1/ai/plugins` with `NOTION_API_TOKEN` and
+`Notion-Version: 2026-03-11`. Two things
 determine what comes back:
 
 - The database must be a **typed** skills DB (`database_type: skills`). Convert
@@ -204,8 +205,14 @@ Check it directly:
 NOTION_API_TOKEN=<token> bun run dry-run
 ```
 
-A `403 restricted_resource` means either the `public_api_skills_plugins` feature
-gate is off for the workspace, or the token lacks read access.
+A `403 restricted_resource` means the token lacks the **Read content** capability.
+If expected plugins are missing, check that the connection can read the intended
+Skills databases. Each Tags value becomes a plugin; an untagged skill becomes
+its own plugin. A plugin archive contains at most 100 skills, with the most
+recently updated skills included when there are more.
+
+Follow all list pages before pruning missing plugins. Failed or incomplete
+listings must never delete existing plugin directories.
 
 ## Common Operations
 

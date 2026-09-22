@@ -6,7 +6,7 @@
 import { spawnSync } from "node:child_process";
 
 /** Where to point `upstream` when it's missing (shown in the error). */
-export const DEFAULT_UPSTREAM_REPO = "makenotion/notion-skills-github-sync";
+export const DEFAULT_UPSTREAM_REPO = "oswarld/notion-skills";
 const UPSTREAM = "upstream";
 
 export type UpdateStatus =

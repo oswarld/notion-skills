@@ -7,9 +7,8 @@
 //
 // The plugin is the only unit here. `list` reports a plugin's identity and
 // version; `/v1/ai/plugins/:id` yields a signed `.tar.gz` for the whole plugin,
-// laid out to the Agent Plugins 1.0 standard. The API exposes no skill-level
-// resource at all — a plugin's skills are whatever its archive contains — so
-// there is nothing to reconcile between a listing and an archive.
+// laid out to the Agent Plugins 1.0 standard. The API also supports individual
+// skill downloads; this sync uses whole plugins and preserves their contents.
 
 import { extractPluginArchive, type PluginFiles } from "./archive.ts";
 import { NotionApiError, type NotionHttp, type PaginatedList } from "./http.ts";
@@ -39,26 +38,68 @@ export interface ListPluginsArgs {
 
 const PLUGINS_PATH = "/v1/ai/plugins";
 
+/** Plugin IDs are opaque strings, not necessarily UUIDs. */
+export function isPluginId(value: unknown): value is string {
+  return typeof value === "string" && value.length > 0 && value.length <= 200 &&
+    !/[\u0000-\u001f\u007f]/.test(value);
+}
+
+function record(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Reject incomplete listings before a consumer can treat them as deletions. */
+export function parsePluginList(value: unknown): PaginatedList<Plugin> {
+  if (!record(value) || !Array.isArray(value.results) || typeof value.has_more !== "boolean") {
+    throw new Error("Invalid Notion plugin list: expected results and has_more.");
+  }
+  const cursor = value.next_cursor;
+  if ((cursor !== undefined && cursor !== null && typeof cursor !== "string") ||
+      (value.has_more && (typeof cursor !== "string" || !cursor.trim()))) {
+    throw new Error("Invalid Notion plugin list: has_more requires a next_cursor.");
+  }
+  const results = value.results.map((plugin): Plugin => {
+    if (!record(plugin) || !isPluginId(plugin.id) || typeof plugin.name !== "string" ||
+        typeof plugin.description !== "string" || typeof plugin.version_id !== "string" ||
+        !plugin.version_id.trim()) {
+      throw new Error("Invalid Notion plugin list: malformed plugin metadata.");
+    }
+    return { id: plugin.id, name: plugin.name, description: plugin.description, version_id: plugin.version_id };
+  });
+  return { object: "list", results, has_more: value.has_more, next_cursor: cursor ?? null };
+}
+
 export class PluginResource {
   constructor(private readonly http: NotionHttp) {}
 
-  list(args: ListPluginsArgs = {}): Promise<PaginatedList<Plugin>> {
-    return request<PaginatedList<Plugin>>(this.http, {
+  async list(args: ListPluginsArgs = {}): Promise<PaginatedList<Plugin>> {
+    return parsePluginList(await request<unknown>(this.http, {
       path: PLUGINS_PATH,
-      query: { start_cursor: args.start_cursor, page_size: args.page_size },
-    });
+      query: { start_cursor: args.start_cursor, page_size: args.page_size ?? 100 },
+    }));
   }
 
-  /** The server ignores `page_size` but does emit a cursor — so follow it. */
+  /** Return only after every page succeeds; a partial list must never be pruned. */
   async listAll(args: ListPluginsArgs = {}): Promise<Plugin[]> {
     const items: Plugin[] = [];
-    let cursor: string | null | undefined;
-    do {
-      const page = await this.list(cursor ? { ...args, start_cursor: cursor } : args);
-      items.push(...(page.results ?? []));
-      cursor = page.has_more ? page.next_cursor : undefined;
-    } while (cursor);
-    return items;
+    const cursors = new Set<string>();
+    const ids = new Set<string>();
+    let cursor = args.start_cursor;
+    if (cursor) cursors.add(cursor);
+    for (;;) {
+      const page = await this.list({ ...args, start_cursor: cursor });
+      for (const plugin of page.results) {
+        if (ids.has(plugin.id)) throw new Error("Invalid Notion plugin list: duplicate plugin ID.");
+        ids.add(plugin.id);
+        items.push(plugin);
+      }
+      if (page.has_more === false) return items;
+      cursor = page.next_cursor;
+      if (!cursor || cursors.has(cursor)) {
+        throw new Error("Invalid Notion plugin list: missing or repeated pagination cursor.");
+      }
+      cursors.add(cursor);
+    }
   }
 
   retrieve({ plugin_id }: { plugin_id: string }): Promise<PluginArchiveRef> {
@@ -77,8 +118,7 @@ export class PluginResource {
   }
 }
 
-// A workspace without the plugins feature gate gets the same 403 as a token
-// missing read access, so name both causes — the fixes differ entirely.
+// Use the public API's documented errors, without internal feature-gate advice.
 async function request<T>(
   http: NotionHttp,
   args: { path: string; query?: Record<string, string | number | undefined | null> },
@@ -89,10 +129,8 @@ async function request<T>(
     if (!NotionApiError.is(err) || err.hint) throw err;
     if (err.status === 403 && err.code === "restricted_resource") {
       throw err.withHint(
-        `  This is either:\n` +
-          `    - the 'public_api_skills_plugins' feature gate being off for this ` +
-          `workspace (ask the Public API team to enable it), or\n` +
-          `    - the access token lacking read content access to the plugins.`,
+        "  The token needs the Read content capability. Also check that the " +
+          "skills databases are shared with the connection; unshared skills are omitted.",
       );
     }
     if (err.status === 401) {
@@ -100,9 +138,7 @@ async function request<T>(
     }
     if (err.status === 400 && err.code === "invalid_request_url") {
       throw err.withHint(
-        `  The Plugins API route was rejected outright. These endpoints moved with ` +
-          `the Agent Plugins standard (per-skill /v1/ai/skills/:id became per-plugin ` +
-          `/v1/ai/plugins/:id), so suspect a route rename before a permissions problem.`,
+        "  Check the API base URL, /v1/ai/plugins route, and Notion-Version: 2026-03-11.",
       );
     }
     throw err;

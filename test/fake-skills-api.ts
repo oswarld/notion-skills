@@ -267,7 +267,7 @@ export class FakeSkillsApi {
     }
 
     // Anything else is a route that doesn't exist — the same 400 the real API
-    // gives for a stale route (e.g. the retired /v1/ai/skills/:id).
+    // gives for an invalid route. Individual skill downloads are outside this fake.
     return this.errorResponse({
       status: 400,
       body: { code: "invalid_request_url", message: `Invalid request URL: ${path}` },
@@ -277,15 +277,15 @@ export class FakeSkillsApi {
   private listPlugins(parsed: URL): Response {
     const cursor = parsed.searchParams.get("start_cursor");
     const start = cursor ? Number(cursor) : 0;
-    const size = this.pageSize ?? this.plugins.length;
+    const requestedSize = Number(parsed.searchParams.get("page_size") ?? 100);
+    const size = Math.min(this.pageSize ?? 100, requestedSize);
     const page = this.plugins.slice(start, start + Math.max(size, 1));
     const end = start + page.length;
     const hasMore = end < this.plugins.length;
 
     return this.json({
       object: "list",
-      // Identity and version only. The API reports no skill-level data anywhere:
-      // a plugin's skills exist solely inside its archive.
+      // The plugin listing reports identity and version, not individual skills.
       results: page.map((plugin) => ({
         id: plugin.id,
         name: plugin.name,

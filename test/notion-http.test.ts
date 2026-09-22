@@ -142,13 +142,12 @@ describe("NotionHttp transport failures", () => {
     expect(calls).toBe(3); // the first attempt plus two retries
   });
 
-  // The server ignores page_size but emits cursors, and pages have been seen
-  // carrying a stale cursor alongside has_more: false — has_more alone decides.
+  // has_more is authoritative even if the last page carries a stale cursor.
   test("listAll stops at has_more: false even if a cursor is still present", async () => {
     const { NotionClient } = await import("../src/notion/index.ts");
     const pages = [
-      { results: [{ id: "p1" }], has_more: true, next_cursor: "c1" },
-      { results: [{ id: "p2" }], has_more: false, next_cursor: "c2" },
+      { results: [{ id: "p1", name: "One", description: "", version_id: "v1" }], has_more: true, next_cursor: "c1" },
+      { results: [{ id: "p2", name: "Two", description: "", version_id: "v2" }], has_more: false, next_cursor: "c2" },
     ];
     let calls = 0;
     const notion = new NotionClient({
@@ -175,4 +174,20 @@ describe("NotionHttp transport failures", () => {
       /Failed to download plugin archive \(403 Forbidden\)/,
     );
   });
+});
+
+test("uses the documented API version without sending credentials to archive storage", async () => {
+  const calls: Array<{ url: string; headers?: Record<string, string> }> = [];
+  const http = new NotionHttp({
+    auth: "ntn_test",
+    fetch: async (url, init) => {
+      calls.push({ url, headers: init?.headers });
+      return Response.json({});
+    },
+  });
+  await http.request({ path: "/v1/ai/plugins" });
+  await http.fetchBytes("https://files.example/plugin.tar.gz");
+  expect(calls[0]!.headers?.["Notion-Version"]).toBe("2026-03-11");
+  expect(calls[0]!.headers?.Authorization).toBe("Bearer ntn_test");
+  expect(calls[1]!.headers).toBeUndefined();
 });

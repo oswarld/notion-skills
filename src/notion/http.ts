@@ -6,7 +6,7 @@
 import { apiBaseUrl, DEFAULT_ENV, type NotionEnv } from "./env.ts";
 
 /** The API version the skills endpoints were shipped against. */
-export const DEFAULT_NOTION_VERSION = "2025-09-03";
+export const DEFAULT_NOTION_VERSION = "2026-03-11";
 
 export const DEFAULT_MAX_RETRIES = 3;
 export const DEFAULT_INITIAL_RETRY_DELAY_MS = 1_000;
@@ -42,10 +42,7 @@ export interface NotionClientOptions {
   logger?: NotionLogger;
 }
 
-/**
- * Branch on `code` (Notion's own), not status: 403 covers both a missing
- * feature gate and a token without access.
- */
+/** Branch on Notion's `code` as well as status for endpoint-specific guidance. */
 export class NotionApiError extends Error {
   readonly name = "NotionApiError";
   readonly status: number;

@@ -1,0 +1,6 @@
+.git_backup
+.secrets
+.notion-sync-setup
+.env*
+test
+setup/test

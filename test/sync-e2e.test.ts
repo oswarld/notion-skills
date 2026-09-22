@@ -276,10 +276,80 @@ describe("plugin API behavior", () => {
     expect(
       api.requests.filter((path) => path === "/v1/ai/plugins" || path.startsWith("/v1/ai/plugins?")),
     ).toEqual([
-      "/v1/ai/plugins",
-      "/v1/ai/plugins?start_cursor=1",
-      "/v1/ai/plugins?start_cursor=2",
+      "/v1/ai/plugins?page_size=100",
+      "/v1/ai/plugins?start_cursor=1&page_size=100",
+      "/v1/ai/plugins?start_cursor=2&page_size=100",
     ]);
+  });
+
+  test.each([
+    ["missing results", { has_more: false }],
+    ["non-array results", { results: {}, has_more: false }],
+    ["missing completion flag", { results: [] }],
+    ["non-boolean completion flag", { results: [], has_more: "false" }],
+    ["missing cursor", { results: [], has_more: true }],
+    ["null cursor", { results: [], has_more: true, next_cursor: null }],
+    ["blank cursor", { results: [], has_more: true, next_cursor: " " }],
+    ["repeated cursor", { results: [], has_more: true, next_cursor: "next" }],
+    ["invalid plugin", { results: [{ id: "broken" }], has_more: false }],
+  ])("preserves the complete target after a partial listing with %s", async (_label, lastPage) => {
+    const api = new FakeSkillsApi([
+      ...FINANCE,
+      { name: "EPD", skills: [{ title: "Design Review" }] },
+    ]);
+    const target = new MemoryTarget();
+    await sync(api, target);
+    const before = new Map(target.files);
+    const finance = api.plugin("Finance");
+    let requests = 0;
+    const source = new NotionClient({
+      auth: "ntn_test",
+      retry: false,
+      fetch: async () => Response.json(++requests === 1 ? {
+        results: [{ id: finance.id, name: finance.name, description: finance.description, version_id: finance.versionId }],
+        has_more: true, next_cursor: "next",
+      } : lastPage),
+    });
+
+    await expect(runSync({ source, target, settings: SETTINGS, log: () => {} })).rejects.toThrow(/Invalid Notion plugin list/);
+    expect(requests).toBe(2);
+    expect(target.files).toEqual(before);
+    expect(target.commits).toHaveLength(1);
+  });
+
+  test("preserves existing files and manifests when a later page fails", async () => {
+    const api = new FakeSkillsApi([
+      ...FINANCE,
+      { name: "EPD", skills: [{ title: "Design Review" }] },
+    ], { pageSize: 1 });
+    const target = new MemoryTarget();
+    await sync(api, target);
+    const before = new Map(target.files);
+    api.failNext({ status: 403, body: { code: "restricted_resource" }, pathIncludes: "start_cursor=" });
+
+    await expect(sync(api, target)).rejects.toThrow(/Read content/);
+    expect(target.files).toEqual(before);
+    expect(target.commits).toHaveLength(1);
+  });
+
+  test("rejects duplicate plugin identities across pages", async () => {
+    const source = new NotionClient({ auth: "ntn_test", fetch: async () => Response.json({
+      results: [{ id: "same", name: "Same", description: "", version_id: "v1" }],
+      has_more: true, next_cursor: "next",
+    }) });
+    const target = new MemoryTarget();
+    await expect(runSync({ source, target, settings: SETTINGS, log: () => {} })).rejects.toThrow(/duplicate plugin ID/);
+    expect(target.commits).toHaveLength(0);
+  });
+
+  test("prunes removed plugins after a successful empty listing", async () => {
+    const api = new FakeSkillsApi(FINANCE);
+    const target = new MemoryTarget();
+    await sync(api, target);
+    api.deletePlugin("Finance");
+    const result = await sync(api, target);
+    expect(result.plan.prunedSlugs).toEqual(["finance"]);
+    expect(target.pathsUnder("plugins/")).toEqual([]);
   });
 
   test("retains an existing plugin only for directory_not_found", async () => {

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "bun run typecheck",
+  "outputDirectory": "public",
+  "installCommand": "bun install --frozen-lockfile",
+  "functions": { "api/index.ts": { "maxDuration": 60, "includeFiles": "skills/**" } },
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "inlevel9-skills.vercel.app" }],
+      "destination": "https://skills.inlevel9.com/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "inlevel9-skills.vercel.app" }],
+      "destination": "https://skills.inlevel9.com/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    { "source": "/((?!(?:style\\.css|skills-logo\\.png|catalog\\.js)$).*)", "destination": "/api/index" }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [
+      { "key": "X-Content-Type-Options", "value": "nosniff" },
+      { "key": "Referrer-Policy", "value": "no-referrer" }
+    ] }
+  ]
+}
