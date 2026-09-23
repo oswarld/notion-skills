@@ -1,16 +1,16 @@
 ---
 name: customer-feedback
-description: Group a supplied set of customer feedback into evidence-backed themes and practical improvement candidates.
+description: 제공된 고객 의견을 근거가 있는 주제로 묶고, 실행할 수 있는 개선 후보를 도출합니다.
 ---
 
-# Customer feedback
+# 고객 의견 묶어 보기
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Give each feedback item a stable reference if it lacks one. Group comments by the underlying need or problem, preserving mixed sentiment and important exceptions. Do not treat repeated copies of one comment as independent customers; identify potential duplicates before reporting frequencies.
+의견마다 번호 등 변하지 않는 참조 표시를 붙입니다. 표현의 차이보다 실제 필요와 문제를 기준으로 묶되, 긍정·부정 의견이 섞인 경우와 중요한 예외를 보존합니다. 같은 의견이 여러 번 복사된 것을 서로 다른 고객으로 세지 않습니다. 빈도를 제시하기 전에 중복 가능성을 확인합니다.
 
-Report counts only within the supplied dataset and state the denominator. Distinguish comments, incidents, and people. Do not generalize a small or self-selected sample into market prevalence. Separate the customer's wording, your interpretation, and proposed solutions.
+건수는 제공된 자료 안에서만 세고 분모를 밝힙니다. 의견 수, 사건 수, 사람 수를 구분합니다. 작거나 자발적으로 참여한 표본을 전체 시장의 비율로 일반화하지 않습니다. 고객의 표현, 분석자의 해석, 제안한 해결책을 나눕니다.
 
-For each major theme, include item references, impact described in the source, and a concrete improvement hypothesis. Prioritize using the user's criteria and evidence of severity or frequency; do not invent revenue impact or precise scores from incomplete data.
+주요 주제마다 의견 번호, 원문에 나타난 영향, 구체적인 개선 가설을 적습니다. 사용자의 기준과 심각도·빈도에 관한 근거로 우선순위를 정합니다. 불완전한 자료로 매출 영향이나 정밀한 점수를 만들어 내지 않습니다.
 
-Return themes, positive signals worth preserving, improvement candidates, and sampling limitations. Mention contradictory feedback when it affects the recommendation. Remove unnecessary identifying details. Use the user's language and do not modify a roadmap or notify customers unless requested.
+주제, 유지할 장점, 개선 후보, 표본의 한계를 정리합니다. 추천에 영향을 주는 상반된 의견도 포함합니다. 불필요한 개인 식별 정보는 제거합니다. 사용자의 언어로 답하며, 요청 없이 로드맵을 수정하거나 고객에게 알리지 않습니다.

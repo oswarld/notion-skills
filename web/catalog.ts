@@ -31,7 +31,7 @@ export const catalog: CatalogSkill[] = skillDefinitions.map((skill) => {
   const decisionGuideSource = readFileSync(new URL(`../skills/${skill.id}/references/decision-guide.yaml`, import.meta.url), "utf8");
   const decisionGuide = parseDecisionGuide(decisionGuideSource);
   // Copy/paste and single-file downloads must not depend on a local reference file.
-  const standaloneMarkdown = `${markdown.replaceAll("[the decision guide](references/decision-guide.yaml)", "the decision guide below").trim()}\n\n${decisionGuideInstructions(decisionGuide)}\n`;
+  const standaloneMarkdown = `${markdown.replaceAll("[판단 가이드](references/decision-guide.yaml)", "아래 판단 가이드").trim()}\n\n${decisionGuideInstructions(decisionGuide)}\n`;
   const instructions = standaloneMarkdown.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, "").trim();
   return { ...skill, markdown, standaloneMarkdown, instructions, decisionGuide, decisionGuideSource };
 });

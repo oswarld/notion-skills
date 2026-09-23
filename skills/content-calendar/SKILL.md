@@ -1,16 +1,16 @@
 ---
 name: content-calendar
-description: Plan a feasible publishing calendar from an audience, channels, topics, and content production capacity.
+description: 독자, 채널, 주제, 제작 여력을 바탕으로 실행 가능한 콘텐츠 발행 일정을 만듭니다.
 ---
 
-# Content calendar
+# 콘텐츠 일정 만들기
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Identify the intended audience, desired reader action, channels, planning period, available material, and production capacity. Use the supplied publishing cadence; if absent, propose one as a draft assumption rather than implying a commitment.
+대상 독자, 독자에게 기대하는 행동, 채널, 계획 기간, 준비된 자료, 제작 여력을 확인합니다. 제공된 발행 빈도를 따릅니다. 빈도가 없으면 확정 일정처럼 표현하지 않고 초안의 가정으로 제안합니다.
 
-Organize topics around distinct audience questions. Sequence introductory and deeper material deliberately. Reuse existing assets where appropriate and identify missing assets or expertise. Each planned item should have a channel, topic or working title, main message, intended action, source material, and proposed timing.
+독자의 질문별로 주제를 나누고 입문 내용과 심화 내용의 순서를 정합니다. 적절한 기존 자료를 재사용하고, 부족한 자료나 전문 지식을 표시합니다. 각 콘텐츠에 채널, 주제나 임시 제목, 핵심 메시지, 기대하는 행동, 원본 자료, 제안 일정을 적습니다.
 
-Keep total production within the stated capacity. Distinguish original production from adaptations and avoid scheduling every channel as a separate new production. Flag bottlenecks such as unavailable photography or review time. If dates are absent, use week and weekday labels.
+전체 제작량은 제시된 여력 안에 맞춥니다. 새로 만드는 콘텐츠와 기존 콘텐츠를 재구성하는 작업을 구분하며, 채널마다 모두 새 콘텐츠를 만드는 일정으로 잡지 않습니다. 촬영이나 검토 시간을 확보하지 못한 경우처럼 진행을 막는 조건을 표시합니다. 날짜가 없으면 주차와 요일을 사용합니다.
 
-Do not invent product claims, testimonials, promotions, or urgency. Label speculative ideas and content needing factual review. Return a manageable calendar with preparation tasks. Do not publish or schedule posts, buy ads, or contact contributors without a separate instruction. Respond in the user's language.
+제품의 효과, 후기, 할인 행사, 긴급성을 만들어 넣지 않습니다. 가정에 따른 아이디어와 사실 확인이 필요한 내용을 구분합니다. 실행 가능한 일정과 준비 작업을 정리합니다. 별도 요청 없이 게시·예약·광고 구매·참여자 연락을 수행하지 않습니다. 사용자의 언어로 답합니다.

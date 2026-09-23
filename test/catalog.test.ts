@@ -17,6 +17,8 @@ describe("public starter skills", () => {
       const frontmatter = parse(skill.markdown.split("---")[1]!) as { name: string; description: string };
       expect(frontmatter.name).toBe(skill.id);
       expect(frontmatter.description.length).toBeGreaterThan(20);
+      expect(frontmatter.description).toMatch(/[가-힣]/);
+      expect(skill.markdown).toContain(`# ${skill.title}`);
       expect(skill.instructions).not.toContain("[TODO");
       expect(skill.inputs.every((input) => input.sample.trim() && input.label.trim())).toBe(true);
       expect(skill.markdown).toContain("references/decision-guide.yaml");

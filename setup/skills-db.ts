@@ -41,23 +41,23 @@ const SAMPLE_SKILLS: SampleSkill[] = [
 
 사용자가 구조적이고 실행 가능한 회의록을 작성하도록 돕습니다.
 
-## When to use
-After any meeting, standup, or call where decisions were made or action items assigned.
+## 사용할 때
+회의, 짧은 업무 공유, 통화에서 결정이나 할 일이 생겼을 때 사용합니다.
 
-## What to capture
-- Attendees — who was there
-- Key decisions — what was agreed on
-- Action items — who does what, by when
-- Open questions — what needs follow-up
-- Next steps — when to reconvene
+## 정리할 내용
+- 참석자 — 회의에 참여한 사람.
+- 핵심 결정 — 합의한 내용.
+- 할 일 — 누가 무엇을 언제까지 할지.
+- 미결 사항 — 후속 확인이 필요한 내용.
+- 다음 단계 — 다시 논의할 시점.
 
-## Bundled files
-This skill ships with supporting files in its directory:
-- scripts/extract_action_items.py — run it over saved notes files (e.g. python3 scripts/extract_action_items.py notes/*.md) to collect every open action item into one follow-up list.
-- assets/notes-header.png — the standard header banner; place it at the top of notes that get shared outside the team.
+## 함께 제공하는 파일
+스킬 디렉터리에 다음 보조 파일이 포함됩니다.
+- scripts/extract_action_items.py — 저장한 회의록에서 미완료 할 일을 모읍니다. 실행 예시: python3 scripts/extract_action_items.py notes/*.md
+- assets/notes-header.png — 팀 외부에 공유할 회의록 맨 위에 넣는 기본 배너입니다.
 
-## Style
-Keep it scannable. Use bullet points over paragraphs. Bold the owner of each action item and write action items as markdown checkboxes ("- [ ] **Owner** — task") so the bundled script can find them. Date everything.`,
+## 작성 방식
+훑어보기 쉽게 문단보다 불릿을 사용합니다. 담당자를 굵게 표시하고 할 일을 Markdown 체크박스("- [ ] **담당자** — 할 일")로 작성하면 함께 제공하는 스크립트가 찾아 모을 수 있습니다. 날짜를 기록합니다.`,
     files: {
       "scripts/extract_action_items.py": `#!/usr/bin/env python3
 """Collect open action items from meeting-notes markdown files.
@@ -98,18 +98,18 @@ if __name__ == "__main__":
       "문서의 명확성, 완전성, 일관성을 검토하고 개선안을 제안하며 잠재적 문제를 표시합니다.",
     body: `# 문서 검토
 
-Review a document and provide structured feedback on clarity, completeness, and consistency.
+문서를 읽고 명확성, 빠진 정보, 일관성에 대한 의견을 정리합니다.
 
-## Approach
-1. Read the full document before commenting.
-2. Flag issues by severity: critical (blocks understanding), moderate (causes confusion), minor (polish).
-3. Suggest specific rewrites rather than vague "make this clearer" feedback.
+## 검토 순서
+1. 의견을 적기 전에 문서 전체를 읽습니다.
+2. 문제를 영향에 따라 나눕니다. 이해를 막는 문제, 혼동을 주는 문제, 표현을 다듬을 부분을 구분합니다.
+3. 명확하게 고치라는 막연한 의견 대신 구체적인 수정안을 제시합니다.
 
-## Check for
-- Clarity — can a new reader follow this without prior context?
-- Completeness — are there gaps in reasoning or missing sections?
-- Consistency — do terms, tone, and formatting stay uniform?
-- Actionability — does the reader know what to do next?`,
+## 확인할 항목
+- 명확성 — 처음 읽는 사람도 배경 설명 없이 이해할 수 있나요?
+- 빠진 정보 — 논리의 빈틈이나 누락된 내용이 있나요?
+- 일관성 — 용어, 말투, 형식이 문서 전체에서 일치하나요?
+- 실행 가능성 — 독자가 다음에 무엇을 해야 하는지 알 수 있나요?`,
   },
 ];
 

@@ -14,7 +14,9 @@ describe("local setup after retiring Actions", () => {
       writeFileSync(join(cwd, ".env"), original);
       const result = Bun.spawnSync([process.execPath, cli, "setup"], { cwd, env: { PATH: "" }, stdout: "pipe", stderr: "pipe" });
       expect(result.exitCode).toBe(0);
-      expect(new TextDecoder().decode(result.stdout)).toContain("bun run dry-run");
+      const output = new TextDecoder().decode(result.stdout);
+      expect(output).toContain("로컬 동기화 설정");
+      expect(output).toContain("bun run dry-run");
       expect(readFileSync(join(cwd, ".env"), "utf8")).toBe(original);
       expect(readdirSync(cwd)).toEqual([".env"]);
     } finally {
@@ -27,7 +29,7 @@ describe("local setup after retiring Actions", () => {
     try {
       const result = Bun.spawnSync([process.execPath, cli, "setup", "--test-run"], { cwd, env: { PATH: "" }, stdout: "pipe", stderr: "pipe" });
       expect(result.exitCode).toBe(1);
-      expect(new TextDecoder().decode(result.stderr)).toContain("retired Actions wizard");
+      expect(new TextDecoder().decode(result.stderr)).toContain("종료된 Actions 설정 마법사");
       expect(readdirSync(cwd)).toEqual([]);
     } finally {
       rmSync(cwd, { recursive: true, force: true });

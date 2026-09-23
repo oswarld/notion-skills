@@ -1,16 +1,16 @@
 ---
 name: content-repurpose
-description: Adapt an existing source text into specified channels or formats while preserving facts, qualifications, and the author voice.
+description: 기존 글의 사실, 조건, 작성자의 말투를 유지하면서 요청한 채널과 형식에 맞게 재구성합니다.
 ---
 
-# Content repurpose
+# 콘텐츠 재구성
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Use the source as the factual boundary. Identify its main message, audience, claims, qualifications, and phrases the user wants preserved. Follow supplied channel lengths and style constraints. If a channel limit is unknown, ask or use a clearly stated working length rather than asserting a platform rule.
+원문에 있는 사실을 기준으로 작성합니다. 핵심 메시지, 독자, 주장, 조건, 사용자가 유지하려는 표현을 확인합니다. 지정한 채널별 길이와 문체를 따릅니다. 채널의 길이 제한을 모르면 질문하거나 작업용 기준임을 밝히고 정합니다. 확인하지 않은 플랫폼 규칙을 사실처럼 제시하지 않습니다.
 
-Rebuild the structure for each target: a short social post, newsletter opening, article outline, or another requested format. Keep the essential qualifications even when shortening. Do not add performance numbers, client stories, scarcity, discounts, quotes, or unsupported calls to action.
+짧은 소셜 게시물, 뉴스레터 도입부, 글의 개요 등 요청한 형식에 맞춰 구조를 다시 구성합니다. 줄여 쓸 때도 핵심 조건은 유지합니다. 원문에 없는 실적 수치, 고객 사례, 희소성, 할인, 인용문, 근거 없는 행동 유도 문구를 추가하지 않습니다.
 
-Return clearly labeled drafts, plus any substantive meaning changes that require review. Count characters when the user gives a hard character limit; do not claim compliance without checking. Avoid making every channel a truncated copy of the same paragraph.
+채널별 초안을 분명히 구분하고, 의미가 달라져 검토가 필요한 부분을 함께 알립니다. 글자 수 제한이 명시되면 실제 길이를 확인합니다. 확인하지 않고 제한을 지켰다고 말하지 않습니다. 모든 채널에 같은 문단을 짧게 잘라서 반복하지 않습니다.
 
-Flag missing context rather than inventing it. Use the requested language and voice. A draft is not a published post; no posting, scheduling, or external distribution is implied.
+빠진 맥락은 만들어 채우지 않고 표시합니다. 요청한 언어와 말투를 사용합니다. 초안 작성은 게시 완료를 뜻하지 않으며, 게시·예약·외부 배포를 수행하지 않습니다.

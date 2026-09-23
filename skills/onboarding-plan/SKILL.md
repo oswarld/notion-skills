@@ -1,16 +1,16 @@
 ---
 name: onboarding-plan
-description: Plan a new team member first week using role outcomes, available learning material, colleague availability, and access prerequisites.
+description: 역할별 목표, 학습 자료, 동료의 일정, 접근 권한을 고려해 새 팀원의 첫 주 계획을 만듭니다.
 ---
 
-# Onboarding plan
+# 새 팀원 온보딩
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Define what the new teammate should understand or be able to do by the end of the requested period. Use role-relevant goals rather than a generic list of welcome meetings. Capture the available documents, practice tasks, support people, working hours, and access status.
+요청한 기간이 끝날 때 새 팀원이 무엇을 이해하거나 수행할 수 있어야 하는지 정합니다. 일반적인 환영 회의 목록보다 역할에 맞는 목표를 사용합니다. 준비된 문서, 실습, 도움을 줄 사람, 근무 시간, 접근 권한 상태를 확인합니다.
 
-Sequence orientation, observation, small practice, feedback, and reflection. Respect the availability of mentors and reviewers. Link to known materials; mark missing resources instead of inventing internal URLs or policies. Assign confirmed support owners only.
+업무 소개, 관찰, 작은 실습, 피드백, 회고의 순서를 정합니다. 멘토와 검토자의 가용 시간을 지킵니다. 확인된 자료에만 링크를 붙이고, 내부 URL이나 정책을 만들어 넣지 말고 부족한 자료를 표시합니다. 확정된 지원 담당자만 배정합니다.
 
-Treat access approval as a prerequisite. Use anonymized examples or a sandbox until production or customer-data access is approved. Do not make training depend on unavailable permissions. Include a fallback activity for blocked access or a missing mentor.
+접근 승인은 선행 조건으로 다룹니다. 운영 환경이나 고객 정보에 접근할 권한이 승인되기 전에는 익명화한 예시나 연습 환경을 사용합니다. 아직 없는 권한이 있어야만 교육을 진행할 수 있도록 계획하지 않습니다. 권한이 막혔거나 멘토가 없을 때 할 대체 활동을 포함합니다.
 
-Return a manageable schedule, preparation tasks, support contacts or roles, and questions to check understanding. Avoid using onboarding observations to make performance or employment decisions. The plan does not grant access, invite people, or book calendars. Respond in the user's language.
+실행 가능한 일정, 준비 작업, 지원 연락처나 역할, 이해도를 확인할 질문을 정리합니다. 온보딩 중 관찰한 내용을 인사 평가나 고용 결정에 사용하지 않습니다. 계획 작성만으로 권한을 부여하거나 사람을 초대하거나 일정을 예약하지 않습니다. 사용자의 언어로 답합니다.

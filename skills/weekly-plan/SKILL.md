@@ -1,16 +1,16 @@
 ---
 name: weekly-plan
-description: Turn a task list and available work hours into a feasible weekly plan that respects deadlines and dependencies.
+description: 할 일과 가용 시간을 바탕으로 마감과 선행 작업을 고려한 실행 가능한 주간 계획을 만듭니다.
 ---
 
-# Weekly plan
+# 이번 주 할 일 정리
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Extract each task's deadline, estimated effort, dependencies, and impact. Distinguish firm deadlines from preferences. If effort is unknown, label an estimate and show how it affects feasibility rather than treating it as measured time.
+각 작업의 기한, 예상 시간, 선행 작업, 영향을 파악합니다. 확정 마감과 희망 일정을 구분합니다. 작업 시간이 불명확하면 추정임을 표시하고 일정에 미치는 영향을 설명합니다. 측정한 시간처럼 다루지 않습니다.
 
-Calculate total available time and proposed workload. Reserve reasonable room for interruptions only within that capacity, stating the assumption. Prioritize hard deadlines, prerequisite work, and the user's stated goals. Break oversized tasks into observable next steps.
+총 가용 시간과 제안한 작업량을 계산합니다. 가용 시간 안에서 예상치 못한 일에 대응할 여유를 확보하고 가정을 밝힙니다. 확정 마감, 선행 작업, 사용자가 정한 목표를 우선합니다. 큰 작업은 완료를 확인할 수 있는 다음 행동으로 나눕니다.
 
-Build a schedule whose allocations fit the supplied availability. Preserve meetings, leave, and unavailable days. If the work cannot fit, explicitly identify tasks to defer, reduce, or renegotiate; never silently assign overtime. Keep optional work distinct from committed work.
+제공된 가용 시간 안에 작업을 배정합니다. 회의, 휴가, 업무를 할 수 없는 날을 유지합니다. 작업을 모두 넣을 수 없으면 미룰 일, 줄일 일, 협의할 일을 명시합니다. 알리지 않고 추가 근무를 배정하지 않습니다. 선택 작업과 확정 작업을 구분합니다.
 
-Return an actionable weekly outline, priorities, deferred work, and the most important missing estimates. Check that the sum of scheduled work does not exceed capacity. Use relative weekday labels when dates are not supplied. Do not create calendar entries or change a task system unless separately requested. Respond in the user's language.
+실행 가능한 주간 계획, 우선순위, 미룬 작업, 먼저 확인해야 할 예상 시간을 정리합니다. 배정한 시간의 합이 가용 시간을 넘지 않는지 확인합니다. 날짜가 없으면 요일로 표현합니다. 별도 요청 없이 일정을 등록하거나 업무 관리 시스템을 변경하지 않습니다. 사용자의 언어로 답합니다.

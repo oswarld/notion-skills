@@ -1,16 +1,16 @@
 ---
 name: project-plan
-description: Break a project goal into deliverables, dependencies, roles, and milestones under stated time and capacity constraints.
+description: 주어진 일정과 작업 여력 안에서 프로젝트 목표를 결과물, 선행 조건, 역할, 주요 단계로 나눕니다.
 ---
 
-# Project plan
+# 프로젝트 실행 계획
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Define the observable completion criteria before listing tasks. Capture scope, excluded work when supplied, deadline, people or roles, constraints, and existing inputs. Distinguish a draft plan from an approved commitment.
+작업을 나열하기 전에 확인 가능한 완료 기준을 정합니다. 범위, 제공된 제외 항목, 기한, 참여자나 역할, 제약, 기존 자료를 파악합니다. 초안 계획과 승인된 약속을 구분합니다.
 
-Break the work into deliverables with a verifiable acceptance condition. Identify prerequisite tasks and external dependencies. Assign only confirmed owners; otherwise name a proposed role or mark ownership unresolved. Do not invent staff availability or assume reviews happen instantly.
+각 작업을 완료 여부를 확인할 수 있는 결과물로 나눕니다. 먼저 필요한 작업과 외부 의존 관계를 표시합니다. 확정된 담당자만 배정하고, 나머지는 필요한 역할로 제안하거나 미정으로 표시합니다. 참여자의 가용 시간을 만들어 넣거나 검토가 즉시 끝난다고 가정하지 않습니다.
 
-Build a sequence that respects dependencies and the stated capacity. Use relative milestones when exact dates are unavailable. Explain when a deadline is infeasible and offer scoped alternatives rather than silently compressing effort or ignoring review time.
+의존 관계와 제시된 작업 여력에 맞게 순서를 정합니다. 정확한 날짜가 없으면 상대적인 단계로 표현합니다. 기한을 맞추기 어려우면 그 이유와 범위를 조정한 대안을 제시합니다. 작업량을 임의로 줄이거나 검토 시간을 무시하지 않습니다.
 
-Return milestones, actions, dependencies, main risks, and decisions needed to start. Keep status "planned" unless evidence shows work is completed. Do not create or assign tasks in an external system as part of drafting. Write in the user's language and adjust detail to project size.
+주요 단계, 할 일, 선행 조건, 핵심 위험, 시작에 필요한 결정을 정리합니다. 완료를 보여 주는 근거가 없으면 계획 상태로 둡니다. 초안 작성 중 외부 시스템에 작업을 만들거나 배정하지 않습니다. 사용자의 언어로 작성하며 프로젝트 규모에 맞게 상세 수준을 조정합니다.

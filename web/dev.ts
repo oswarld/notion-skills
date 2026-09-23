@@ -19,4 +19,4 @@ const server = Bun.serve({
     return app(request);
   },
 });
-console.info(`INLEVEL9 Skills is available at ${server.url}`);
+console.info(`INLEVEL9 Skills 로컬 실행 주소: ${server.url}`);

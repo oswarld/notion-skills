@@ -6,38 +6,38 @@ import { runSetup } from "../setup/index.ts";
 import { runUpdate } from "./update.ts";
 import { buildSync } from "./wire.ts";
 
-const HELP = `notion-skills-github-sync — publish a Notion workspace's skills as a plugin marketplace
+const HELP = `notion-skills-github-sync — Notion 워크스페이스의 스킬을 플러그인 마켓플레이스로 게시
 
-Usage:
-  notion-skills-sync setup            Show local sync configuration steps
-  notion-skills-sync setup --ci       Run a real Notion/GitHub integration setup
-  notion-skills-sync sync             Sync the workspace's skills to the target repo
-  notion-skills-sync sync --dry-run   Show what would change without pushing
-  notion-skills-sync update           Merge tool updates from the 'upstream' remote
-  notion-skills-sync migrate-config   Copy a legacy config.json into .env + repo variables
-  notion-skills-sync help             Show this help
+사용법:
+  notion-skills-sync setup            로컬 동기화 설정 순서 안내
+  notion-skills-sync setup --ci       실제 Notion·GitHub 리소스로 통합 테스트
+  notion-skills-sync sync             워크스페이스의 스킬을 대상 저장소에 동기화
+  notion-skills-sync sync --dry-run   푸시하지 않고 변경할 내용 확인
+  notion-skills-sync update           upstream 원격 저장소의 도구 업데이트 병합
+  notion-skills-sync migrate-config   기존 config.json을 .env와 저장소 변수로 이전
+  notion-skills-sync help             이 도움말 표시
 
-Default setup only explains local configuration. It does not modify files,
-create remote resources, or publish anything. The advanced setup --ci mode
-creates a Notion Skills database and writes to a GitHub test branch.
+기본 setup은 로컬 설정만 안내합니다. 파일을 수정하거나 외부 리소스를 만들거나
+게시하지 않습니다. 고급 setup --ci 모드는 실제 Notion 스킬 데이터베이스를 만들고
+GitHub 테스트 브랜치에 기록합니다.
 
-Setup flags:
-  --ci                    Run non-interactively (no prompts, uses env tokens)
-  --env <env>             Notion environment (dev|stg|prod, default: prod)
-  --repo <owner/name>     Skills repo, CI mode only (auto-detected from git remote if omitted)
-  --db-name <name>        Name for the Notion Skills DB (default: "Skills")
-  --db-parent-page <id>   Parent page ID for the database (CI mode, required)
+설정 옵션:
+  --ci                    질문 없이 환경변수의 토큰으로 통합 테스트 실행
+  --env <env>             Notion 환경 (dev|stg|prod, 기본값: prod)
+  --repo <owner/name>     스킬 저장소, CI 모드 전용 (생략하면 Git 원격 저장소에서 확인)
+  --db-name <name>        Notion 스킬 데이터베이스 이름 (기본값: "스킬")
+  --db-parent-page <id>   데이터베이스의 상위 페이지 ID (CI 모드 필수)
 
-Update flags:
-  --branch <name>         Upstream branch to merge (default: main)
+업데이트 옵션:
+  --branch <name>         병합할 upstream 브랜치 (기본값: main)
 
-Migrate-config flags:
-  --repo <owner/name>     Sync repo whose Actions variables to set
-                          (default: detected from the 'origin' remote)
-  --env-only              Write .env only; skip the repo variables
+이전 설정 마이그레이션 옵션:
+  --repo <owner/name>     Actions 변수를 설정할 동기화 저장소
+                          (기본값: origin 원격 저장소에서 확인)
+  --env-only              저장소 변수는 건드리지 않고 .env에만 기록
 
-Configuration comes from environment variables (.env locally, repo variables and
-secrets in CI). See .env.example.`;
+설정은 환경변수에서 읽습니다. 로컬에서는 .env를 사용합니다.
+이 저장소에는 예약 실행 워크플로가 없습니다. 전체 설정은 .env.example을 참고하세요.`;
 
 function flagValue(args: string[], flag: string): string | undefined {
   const i = args.indexOf(flag);
@@ -55,8 +55,8 @@ async function main(): Promise<void> {
         // Without this guard the flag would fall through and silently launch
         // the full interactive wizard instead.
         throw new Error(
-          "--migrate-config moved: run `notion-skills-sync migrate-config` " +
-            "(bun run migrate-config) to copy config.json into .env and repo variables.",
+          "--migrate-config 옵션은 별도 명령으로 옮겨졌습니다. `notion-skills-sync migrate-config` " +
+            "(bun run migrate-config)로 config.json을 .env와 저장소 변수에 복사하세요.",
         );
       }
       const ci = rest.includes("--ci") || rest.includes("--non-interactive");
@@ -95,7 +95,7 @@ async function main(): Promise<void> {
       console.log(HELP);
       break;
     default:
-      console.error(`Unknown command: ${cmd}\n`);
+      console.error(`알 수 없는 명령: ${cmd}\n`);
       console.log(HELP);
       process.exitCode = 1;
   }

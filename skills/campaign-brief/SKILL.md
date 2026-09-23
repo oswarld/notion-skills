@@ -1,16 +1,16 @@
 ---
 name: campaign-brief
-description: Convert a campaign idea into a concrete brief covering audience, message, execution, and measurable outcomes.
+description: 캠페인 아이디어를 대상, 메시지, 실행 순서, 측정 가능한 결과를 담은 구체적인 기획서로 정리합니다.
 ---
 
-# Campaign brief
+# 캠페인 기획서
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Separate the business goal from the audience action that would contribute to it. Use confirmed offer details and constraints. Capture the target audience, value proposition, channel choices, time window, available assets, and budget only when provided.
+사업 목표와 그 목표에 도움이 되는 고객의 행동을 구분합니다. 확인된 상품·서비스 정보와 제약을 사용합니다. 대상 고객, 제공하는 가치, 채널, 기간, 준비된 자료, 예산은 제공된 범위에서 정리합니다.
 
-Create a brief that connects message, audience action, distribution, and measurement. For each execution item, identify a responsible role or mark ownership undecided. Explain what must exist first, such as a working signup page or reviewed product facts.
+메시지, 고객의 행동, 전달 채널, 측정 방법이 연결되도록 기획합니다. 실행 항목마다 담당 역할을 적거나 미정으로 표시합니다. 신청 페이지의 정상 동작이나 상품 정보 검토처럼 먼저 갖춰야 할 조건을 설명합니다.
 
-Define metrics with units and, where needed, numerators and denominators. Distinguish a proposed target from a baseline, forecast, or observed outcome. Do not fabricate conversion rates, budgets, customer testimonials, or expected returns. If a target needs historical data, identify the data needed rather than assigning a persuasive number.
+지표의 단위를 정하고 필요하면 분자와 분모를 밝힙니다. 제안한 목표와 기준값, 예측, 실제 결과를 구분합니다. 전환율, 예산, 고객 후기, 기대 수익을 만들어 넣지 않습니다. 목표 설정에 과거 데이터가 필요하면 임의의 수치 대신 필요한 데이터를 적습니다.
 
-Return a focused brief, execution sequence, assumptions, and unresolved decisions. Respect channel and spending constraints. Creating the brief does not authorize launching ads, spending money, or publishing messages. Use the user's language.
+핵심 기획서, 실행 순서, 가정, 미결 사항을 정리합니다. 지정된 채널과 지출 제한을 지킵니다. 기획서 작성만으로 광고를 집행하거나 비용을 지출하거나 메시지를 게시하지 않습니다. 사용자의 언어로 답합니다.

@@ -1,100 +1,63 @@
-# Marketplace listing draft
+# 마켓플레이스 등록 초안과 진행 기록
 
-Draft prepared on 2026-09-22 for the user's existing Notion connection.
+사용자의 기존 Notion 연결을 대상으로 2026년 9월 22일에 등록 초안을 준비했습니다. 아래 상태는 각 날짜에 확인한 기록이며, 실시간 등록·배포 상태를 의미하지 않습니다.
 
-Latest listing status reported by the user on 2026-09-22: they submitted the listing and
-provided a screenshot showing **Skills / Awaiting approval**. The starter
-catalog, shared policy footer, and review-draft `/privacy` and `/terms` pages are
-now deployed at https://skills.inlevel9.com. Both policy pages and their footer
-links were verified in production. Marketplace approval has not been rechecked.
-Policy adoption remains unfinished; publishing the draft pages does not resolve it.
+## 마지막으로 확인한 진행 상황
 
-On 2026-09-23, the existing deployment completed a real OAuth callback, Skills API
-listing, and verification archive download. See
-[verification evidence](decision-guide-verification.md). The new decision-guide
-catalog changes remain local and were not deployed during this verification.
+2026년 9월 22일 사용자는 등록 신청을 제출했다고 알렸고, **Skills / Awaiting approval**(승인 대기)이 표시된 화면을 제공했습니다. 기본 스킬 카탈로그, 공통 푸터의 정책 링크, 검토용 `/privacy`와 `/terms` 페이지가 [운영 서비스](https://skills.inlevel9.com)에 배포됐습니다. 두 정책 페이지와 푸터 링크가 운영 환경에서 열리는 것도 확인했습니다. 마켓플레이스 승인 여부는 이후 다시 확인하지 않았습니다.
 
-## Historical draft-preparation notes
+정책 초안의 확정은 당시 완료되지 않았습니다. 검토용 페이지를 공개한 것만으로 해당 정책이 확정되거나 효력이 발생한 것은 아닙니다.
 
-The notes below record the earlier preparation state, before submission and the
-production checks above. Their deployment and submission statements are historical.
+2026년 9월 23일에는 기존 운영 서비스에서 실제 OAuth 콜백, Skills API 목록 조회, 검증용 압축 파일 다운로드를 확인했습니다. 자세한 내용은 [판단 가이드 검증 기록](decision-guide-verification.md)을 참고하세요. 새 판단 가이드를 포함한 카탈로그 변경 사항은 이 검증 당시 로컬에만 있었으며, 검증 작업 중 배포하지 않았습니다.
 
-- Form: https://app.notion.com/profile/connections/form/new?integrationId=3e3d872b-594c-811e-bc79-00378bdc7883
-- Existing connection name: Notion Skills (preserved).
-- Publisher: INLEVEL9.
-- Contact: contact@inlevel9.com, matching the existing public INLEVEL9 terms.
-- Website: https://skills.inlevel9.com
-- Installation entry: https://skills.inlevel9.com/auth/notion
-- Privacy: https://skills.inlevel9.com/privacy
-- Reserved terms URL: https://skills.inlevel9.com/terms
-- Proposed listing slug: inlevel9-skills.
-- Feature: Import.
-- Existing categories: Collaboration, File management, Productivity.
+## 초기 초안 작성 당시의 기록
 
-Saved in Notion on 2026-09-22. The UI reported that the connection listing was
-saved; reloading the form retained the description, getting-started copy,
-categories, developer details, policy URLs, and gallery image. The form remains
-an editable draft and was not submitted for review.
+아래 내용은 등록 신청 제출과 위의 운영 검증보다 앞선 준비 과정을 기록합니다. 미배포·미제출 등의 표현은 해당 작업 당시의 상태입니다.
 
-`docs/marketplace/catalog-preview.png` is an actual screenshot of the local
-starter catalog attached to the draft. It does not demonstrate an authenticated
-Notion connection. Add a real connection walkthrough after OAuth verification.
-`docs/marketplace/privacy-draft-preview.png` is a local review screenshot only.
+- 등록 양식: [Notion 연결 등록 화면](https://app.notion.com/profile/connections/form/new?integrationId=3e3d872b-594c-811e-bc79-00378bdc7883)
+- 기존 연결 이름: Notion Skills. 당시 이름을 유지했습니다.
+- 게시자: INLEVEL9.
+- 연락처: contact@inlevel9.com. 기존 공개 INLEVEL9 이용약관의 연락처와 일치합니다.
+- 웹사이트: [INLEVEL9 Skills](https://skills.inlevel9.com)
+- 연결 시작 주소: [Notion으로 연결](https://skills.inlevel9.com/auth/notion)
+- 개인정보처리방침: [개인정보처리방침 페이지](https://skills.inlevel9.com/privacy)
+- 이용약관용으로 정한 주소: [이용약관 페이지](https://skills.inlevel9.com/terms)
+- 등록 주소에 사용할 이름 제안: `inlevel9-skills`.
+- 기능 항목: `Import`(가져오기).
+- 기존 카테고리: `Collaboration`(협업), `File management`(파일 관리), `Productivity`(생산성).
 
-The listing describes the service as being prepared for release. The public
-deployment does not yet contain the starter catalog, and the OAuth connection
-has not been verified end to end. Do not submit this draft as a ready product.
-Before submission, update the status wording to reflect the actually released
-features and confirm every public URL.
+2026년 9월 22일 Notion에 초안을 저장했습니다. 화면에 저장 완료가 표시됐고, 양식을 새로 열어도 설명, 시작 안내, 카테고리, 개발자 정보, 정책 URL, 갤러리 이미지가 유지됐습니다. 이 저장 확인 시점에는 수정 가능한 초안 상태였으며, 심사를 요청하기 전이었습니다.
 
-## Terms adaptation
+`docs/marketplace/catalog-preview.png`는 등록 초안에 첨부한 로컬 기본 스킬 카탈로그의 실제 화면입니다. 인증된 Notion 연결을 보여 주는 자료는 아닙니다. OAuth 검증 후 실제 연결 과정을 보여 주는 자료를 추가하도록 했습니다. `docs/marketplace/privacy-draft-preview.png`는 로컬에서 정책 초안을 검토하기 위한 화면입니다.
 
-Reference: https://inlevel9.com/terms (reviewed 2026-09-22; source displayed an
-update date of 2026-08-23). `web/terms.ts` is a service-specific review draft,
-not a statement that the terms have already taken effect or been published.
+초기 등록 문구는 서비스를 공개 준비 중인 상태로 설명했습니다. 당시 운영 서비스에는 기본 스킬 카탈로그가 아직 배포되지 않았고, OAuth 연결도 처음부터 끝까지 검증하지 않은 상태였습니다. 이에 실제로 배포한 기능에 맞게 상태 설명을 수정하고 모든 공개 URL을 확인한 뒤 제출하도록 정리했습니다.
 
-- Retained the publicly displayed operator identity and support contact.
-- Replaced newsletter, membership, checkout, and comment provisions with the
-  actual catalog, local request composer, download, and Notion OAuth features.
-- Described current absence of billing; future paid features require separate
-  disclosure and consent.
-- Proposed explicit permission for ordinary business use, AI input, and local
-  customization of first-party skills. Copying the newsletter's prohibition on
-  commercial use and AI input would contradict the purpose of this product.
-- Distinguished user-owned Notion content from first-party starter skills.
-- Did not carry over a payment-based liability cap to the currently free service.
-- Left the effective date undecided and displayed a review-draft notice.
+## 이용약관 초안에 반영한 내용
 
-The operator must review the usage grant, distribution conditions, and effective
-date before adopting and publishing the terms. No legal adequacy determination
-is implied by preparing this draft.
+참고 문서는 [INLEVEL9 이용약관](https://inlevel9.com/terms)입니다. 2026년 9월 22일에 확인했으며, 원문에 표시된 개정일은 2026년 8월 23일이었습니다. `web/terms.ts`는 이 서비스에 맞춰 작성한 검토용 초안입니다. 초안을 준비했다는 사실과 정책의 확정·공개·효력 발생은 구분합니다.
 
-## Privacy adaptation
+- 공개된 운영자 정보와 고객지원 연락처를 유지했습니다.
+- 뉴스레터, 회원가입, 결제, 댓글 관련 조항을 실제 기능인 카탈로그, 브라우저 내 요청문 생성, 다운로드, Notion OAuth 연결에 맞게 바꿨습니다.
+- 현재 결제 기능이 없음을 설명했습니다. 향후 유료 기능을 도입할 때는 별도 안내와 동의가 필요하도록 작성했습니다.
+- 직접 제공하는 스킬을 일반 업무에 사용하고, AI에 입력하고, 로컬에서 수정할 수 있도록 명시하는 안을 제시했습니다. 뉴스레터의 상업적 이용·AI 입력 금지 조항을 그대로 적용하면 서비스 목적과 맞지 않기 때문입니다.
+- 사용자가 소유한 Notion 콘텐츠와 서비스가 제공하는 기본 스킬을 구분했습니다.
+- 현재 무료인 서비스에 결제액을 기준으로 한 책임 한도 조항을 그대로 적용하지 않았습니다.
+- 시행일은 확정하지 않고 검토용 초안임을 표시했습니다.
 
-Reference: https://inlevel9.com/privacy (reviewed 2026-09-22; source displayed an
-update date of 2026-09-05). `web/privacy.ts` replaces the short data notice with a
-service-specific review draft. It is not yet deployed or effective.
+운영자는 이용 허용 범위, 배포 조건, 시행일을 검토한 뒤 약관을 확정하고 공개해야 합니다. 이 초안을 작성한 것은 법적 적합성을 판단했다는 뜻이 아닙니다.
 
-- Retained the public operator and privacy contact, rights request channel, and
-  change-notice structure.
-- Documented actual processing in `web/app.ts`, `web/notion.ts`,
-  `web/session.ts`, and `public/catalog.js`: browser-only input composition,
-  URL-based catalog search, minimal OAuth session data, and direct downloads.
-- Distinguished the ten-minute OAuth state cookie from the eight-hour session,
-  and cookie deletion from revocation of Notion access.
-- Excluded newsletter, billing, advertising, and analytics integrations that
-  this web service does not use.
-- Distinguished provider responses processed transiently from values retained
-  in encrypted cookies. No email/profile directory or refresh-token store exists.
-- Left provider log retention, email inquiry retention, and precise overseas
-  processing disclosures as explicit unresolved review items. Do not copy the
-  newsletter's retention periods or assume provider regions from its policy.
-- Before publishing, verify provider contracts, retention, log access and
-  callback-query handling, countries, recipients, contact details, transfer
-  grounds, timing/method, and withdrawal options against the actual deployment.
+## 개인정보처리방침 초안에 반영한 내용
 
-## Repository
+참고 문서는 [INLEVEL9 개인정보처리방침](https://inlevel9.com/privacy)입니다. 2026년 9월 22일에 확인했으며, 원문에 표시된 개정일은 2026년 9월 5일이었습니다. `web/privacy.ts`는 짧은 데이터 안내문을 대체해 작성한 서비스 전용 검토 초안입니다. 초기 작성 시점에는 배포 전이었으며, 이후 검토용 페이지를 공개한 상태는 위의 진행 기록에 구분했습니다.
 
-Local `origin` is connected to https://github.com/oswarld/Notion-skills.git.
-GitHub reported the repository as public on 2026-09-22. Connecting the remote
-does not publish local changes; no commit or push was performed for this draft.
+- 공개된 운영자·개인정보 담당 연락처, 권리 행사 요청 창구, 변경 안내 구조를 유지했습니다.
+- `web/app.ts`, `web/notion.ts`, `web/session.ts`, `public/catalog.js`의 실제 처리 방식을 반영했습니다. 브라우저 안에서의 요청문 생성, URL을 사용하는 카탈로그 검색, 최소한의 OAuth 세션 정보, 직접 다운로드를 설명했습니다.
+- 10분 동안 유지되는 OAuth 상태 쿠키와 8시간 동안 유지되는 로그인 세션을 구분했습니다. 쿠키 삭제와 Notion 접근 권한 취소도 구분했습니다.
+- 이 웹 서비스에서 사용하지 않는 뉴스레터, 결제, 광고, 분석 서비스 연동은 제외했습니다.
+- 일시적으로 처리하는 외부 서비스 응답과 암호화된 쿠키에 보관하는 값을 구분했습니다. 이메일·프로필 목록이나 갱신 토큰을 보관하는 저장소는 없습니다.
+- 외부 서비스의 로그 보관 기간, 이메일 문의 보관 기간, 구체적인 국외 처리 고지는 미확정 검토 항목으로 남겼습니다. 뉴스레터의 보관 기간을 그대로 옮기거나 해당 정책만으로 처리 국가를 가정하지 않도록 했습니다.
+- 정책을 확정해 공개하기 전에 실제 운영 환경을 기준으로 외부 서비스 계약, 보관 기간, 로그 접근 권한, 콜백 URL의 쿼리 처리, 처리 국가, 수령자, 연락처, 이전 근거, 이전 시점·방식, 동의 철회 방법을 확인하도록 했습니다.
+
+## 저장소 관련 기록
+
+당시 로컬 `origin`은 [GitHub 저장소](https://github.com/oswarld/Notion-skills.git)에 연결되어 있었습니다. 2026년 9월 22일 GitHub에서 공개 저장소임을 확인했습니다. 원격 저장소를 연결하는 것만으로 로컬 변경 사항이 공개되지는 않습니다. 이 초안 작성 작업에서는 커밋이나 푸시를 수행하지 않았습니다.

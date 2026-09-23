@@ -1,16 +1,16 @@
 ---
 name: decision-brief
-description: Compare options against explicit decision criteria and explain a conditional recommendation with evidence and remaining uncertainty.
+description: 명시된 판단 기준으로 선택지를 비교하고, 근거와 남은 불확실성을 포함한 조건부 추천을 정리합니다.
 ---
 
-# Decision brief
+# 선택지 비교·결정 메모
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-State the decision, options, decision deadline, constraints, and success criteria. Separate hard constraints from preferences. Include retaining the current approach when it is a real option, without assuming change is required.
+결정할 사안, 선택지, 결정 기한, 제약, 성공 기준을 적습니다. 반드시 지킬 조건과 선호를 구분합니다. 현상 유지가 실제 선택지라면 함께 검토하며, 변화가 꼭 필요하다고 가정하지 않습니다.
 
-Compare options against the same criteria using supplied or verifiable evidence. Mark unknowns instead of filling a table with invented numbers. Use weighted scoring only when the user supplies or approves meaningful weights and the inputs justify the precision.
+제공되었거나 확인 가능한 근거로 모든 선택지를 같은 기준에서 비교합니다. 표를 임의의 숫자로 채우지 말고 모르는 값을 표시합니다. 사용자가 의미 있는 가중치를 제공하거나 승인했고, 입력 자료가 그 정밀도를 뒷받침할 때만 가중 점수를 사용합니다.
 
-Explain tradeoffs, reversibility, transition effort, and uncertainty. A recommendation may be conditional or favor a limited experiment. State what evidence would reverse the recommendation and the smallest next step that would resolve a consequential unknown.
+얻는 이점과 감수할 불이익, 되돌릴 수 있는 정도, 전환 작업량, 불확실성을 설명합니다. 조건부 추천이나 제한된 시험을 제안할 수 있습니다. 어떤 근거가 나오면 추천이 바뀌는지, 중요한 미확인 요소를 해소할 가장 작은 다음 행동이 무엇인지 적습니다.
 
-Return a brief decision statement, comparison, recommendation or reason to defer, and open questions. Do not present an unapproved choice as a decision already taken. Do not purchase, migrate, or grant access as part of analysis. Match the user's language and decision context.
+결정할 문제, 비교 결과, 추천 또는 보류 이유, 남은 질문을 짧게 정리합니다. 승인되지 않은 선택을 이미 내려진 결정처럼 표현하지 않습니다. 분석 과정에서 구매, 이전, 권한 부여를 수행하지 않습니다. 사용자의 언어와 의사결정 맥락에 맞춥니다.

@@ -1,16 +1,16 @@
 ---
 name: email-draft
-description: Draft a workplace email for a specific recipient and purpose, including requests, schedule changes, and concise updates.
+description: 받는 사람과 목적에 맞춰 요청, 일정 변경, 간단한 진행 안내 등 업무 이메일의 제목과 본문을 작성합니다.
 ---
 
-# Email draft
+# 이메일 작성
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Identify the recipient relationship, desired response, confirmed facts, and any deadline. Ask about missing information only when needed to avoid changing the user's intent. Otherwise use a visible placeholder or omit the unnecessary detail.
+받는 사람과의 관계, 원하는 답변, 확인된 사실, 기한을 파악합니다. 빠진 정보는 사용자의 의도를 바꾸지 않기 위해 필요한 경우에만 질문합니다. 그 외에는 눈에 띄는 자리표시자를 쓰거나 불필요한 세부사항을 생략합니다.
 
-Put the reason for writing early. Keep the requested action and timing explicit, with a tone matching the relationship. Preserve uncertainty and avoid adding excuses, apologies, promises, attachments, meeting times, or approval claims that the user did not provide.
+글을 쓰는 이유를 앞부분에 둡니다. 요청하는 행동과 시점을 분명히 하고 관계에 맞는 말투를 사용합니다. 불확실한 부분은 그대로 유지합니다. 사용자가 제공하지 않은 사유, 사과, 약속, 첨부 파일, 회의 시간, 승인 사실을 덧붙이지 않습니다.
 
-Return a subject and a ready-to-review body. Separate internal questions from text intended for the recipient. When suggesting alternative phrasing, explain the practical difference briefly rather than producing many near-identical versions.
+제목과 검토 후 보낼 수 있는 본문을 제공합니다. 내부 확인 질문과 받는 사람에게 전달할 문장을 구분합니다. 다른 표현을 제안할 때는 비슷한 문장을 여러 개 나열하기보다 실제로 달라지는 점을 짧게 설명합니다.
 
-Check that dates and requests agree throughout the draft. Do not say an attachment is included unless it is actually supplied for sending. Drafting does not authorize sending, scheduling, or contacting the recipient. Write in the requested language, or the user's language by default.
+날짜와 요청이 초안 전체에서 일치하는지 확인합니다. 실제로 보낼 파일이 제공되지 않았다면 첨부했다고 쓰지 않습니다. 초안 작성만으로 발송, 예약, 수신자 연락을 수행하지 않습니다. 요청한 언어가 있으면 따르고, 없으면 사용자의 언어로 작성합니다.

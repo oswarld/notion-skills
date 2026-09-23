@@ -1,73 +1,48 @@
-# Decision guide verification
+# 판단 가이드 검증 기록
 
-Verified on 2026-09-23. The decision-guide changes are local and uncommitted.
-No push or deployment was performed for this change.
+검증일은 2026년 9월 23일입니다. 아래 내용은 **검증 당시의 상태**를 기록합니다. 당시 판단 가이드 변경 사항은 로컬에만 있었으며, 이 검증 작업에서 커밋·푸시·배포를 수행하지 않았습니다.
 
-## Local behavior
+## 로컬 기능 검증
 
-All 15 starter skills have a required decision guide containing questions,
-criteria, unknown handling, and a Notion-ready output structure. The browser
-view, copied request, standalone Markdown, and skill ZIP use that same source.
-The site prepares instructions for the user's AI; it does not run a model or
-retrieve the user's current Notion page.
+기본 스킬 15개 모두에 판단 질문, 판단 기준, 정보가 부족할 때의 처리 방식, Notion에 정리할 결과 형식을 담은 가이드를 추가했습니다. 화면, 복사한 요청문, 단일 Markdown 파일, 스킬 ZIP이 같은 원본을 사용합니다. 사이트는 사용자의 AI에 전달할 지침을 준비하며, 모델을 실행하거나 현재 Notion 페이지를 직접 가져오지는 않습니다.
 
-Automated checks:
+자동 검사 결과는 다음과 같습니다.
 
-- `npx --yes bun test`: 251 passed, 0 failed, 1,386 assertions across 24 files.
-- `npm run typecheck`: passed.
-- Skill creator's `quick_validate.py`: all 15 packages passed.
-- Local links and image paths in the main, web, and setup READMEs: 20 checked,
-  none missing.
-- `git diff --check`: passed.
+- `npx --yes bun test`: 테스트 251개 통과, 실패 0개. 파일 24개에서 검증문 1,386개 실행.
+- `npm run typecheck`: 통과.
+- 스킬 제작 도구의 `quick_validate.py`: 스킬 패키지 15개 모두 통과.
+- 루트·웹 서비스·설정 도구의 README에 있는 로컬 링크와 이미지 경로: 20개 확인, 누락 없음.
+- `git diff --check`: 통과.
 
-The tests check complete guide propagation for every skill, source/condition
-separation, exclusion of hidden drafts in current-page mode, standalone file
-completeness, ZIP contents, invalid guides, HTML escaping, and the retired setup
-wizard's no-mutation default. Existing mocked OAuth and Skills API tests also pass.
+테스트에서는 모든 스킬에 가이드 내용이 빠짐없이 전달되는지, 원문과 작업 조건이 구분되는지, 현재 페이지 모드에서 숨겨진 입력 자료가 제외되는지 확인했습니다. 단일 파일에 필요한 지침이 모두 포함되는지, ZIP 내용이 올바른지, 잘못된 가이드를 거부하는지, HTML을 이스케이프하는지도 확인했습니다. 기존 설정 마법사를 대체한 기본 명령이 파일이나 외부 상태를 변경하지 않는지 검사했습니다. 모의 응답을 사용하는 기존 OAuth와 Skills API 테스트도 통과했습니다.
 
-Browser checks at http://127.0.0.1:3000/catalog/meeting-notes:
+[로컬 회의록 정리 화면](http://127.0.0.1:3000/catalog/meeting-notes)에서 다음 동작을 확인했습니다.
 
-- Missing pasted material produces a visible validation message.
-- Example material and additional criteria produce a complete request.
-- The clipboard exactly matches the generated request.
-- Switching to current-page mode hides the material field and invalidates the
-  old request. The new request excludes the hidden material and keeps the
-  audience and additional criteria.
-- Current-page mode also works with an otherwise empty form.
-- Editing criteria invalidates the old request. Switching back preserves the draft.
-- Example insertion refuses to overwrite existing work, including hidden material.
-- The module script executes with the existing CSP; no browser console errors
-  were reported during these checks.
+- 직접 입력 모드에서 자료가 없으면 입력 안내 메시지를 표시합니다.
+- 예시 자료와 추가 판단 기준으로 요청문을 생성합니다.
+- 클립보드에 복사된 내용이 생성한 요청문과 정확히 일치합니다.
+- 현재 페이지 모드로 바꾸면 자료 입력란을 숨기고 이전 요청문을 무효화합니다. 새 요청문에는 숨겨진 자료가 포함되지 않으며, 독자 정보와 추가 판단 기준은 유지됩니다.
+- 다른 입력란이 비어 있어도 현재 페이지 모드로 요청문을 만들 수 있습니다.
+- 판단 기준을 수정하면 이전 요청문을 무효화합니다. 직접 입력 모드로 돌아가면 작성하던 자료가 유지됩니다.
+- 예시 넣기는 숨겨진 자료를 포함해 작성 중인 내용을 덮어쓰지 않습니다.
+- 기존 CSP 설정에서 모듈 스크립트가 실행됩니다. 확인 과정에서 브라우저 콘솔 오류는 보고되지 않았습니다.
 
-## Existing production connection
+## 기존 운영 서비스의 연결 검증
 
-These checks used the already deployed service, not the uncommitted catalog changes:
+아래 검증은 이미 배포된 서비스에서 수행했습니다. 당시 커밋하지 않은 카탈로그 변경 사항을 운영 환경에서 검사한 것은 아닙니다.
 
-1. https://skills.inlevel9.com/health returned `{"status":"ready"}`.
-2. The OAuth authorization screen showed selected-page read access. It showed
-   **INLEVEL9 Skills Verification** as already added. No additional page was selected.
-3. Authorization returned through the callback to
-   https://skills.inlevel9.com/skills with an authenticated library.
-4. The live Skills API listed **OAuth Verification** and **notion-skills-updater**.
-5. The **OAuth Verification** download produced `o-auth-verification.tar.gz`
-   (536 bytes). Reading the archive without extracting it confirmed `plugin.json`,
-   `skills/o-auth-verification/SKILL.md`, and marker
-   `INLEVEL9-OAUTH-VERIFICATION-20260922`.
+1. [운영 상태 확인 주소](https://skills.inlevel9.com/health)에서 `{"status":"ready"}`를 반환했습니다.
+2. OAuth 동의 화면에 선택한 페이지의 읽기 권한이 표시됐습니다. **INLEVEL9 Skills Verification** 페이지는 이미 추가된 상태였으며, 다른 페이지를 추가로 선택하지 않았습니다.
+3. 인증 후 콜백을 거쳐 [내 스킬 라이브러리](https://skills.inlevel9.com/skills)로 돌아왔고, 로그인한 사용자의 목록이 표시됐습니다.
+4. 실제 Skills API 응답에 **OAuth Verification**과 **notion-skills-updater**가 표시됐습니다.
+5. **OAuth Verification**을 내려받아 `o-auth-verification.tar.gz` 파일(536바이트)을 확인했습니다. 압축을 풀지 않고 내용을 읽어 `plugin.json`, `skills/o-auth-verification/SKILL.md`, 검증 표식 `INLEVEL9-OAUTH-VERIFICATION-20260922`가 포함된 것을 확인했습니다.
 
-This establishes a real OAuth exchange, an authorized plugin listing, and a
-successful Notion archive download. It does not establish access to all
-workspaces. Unshared-page denial, revocation, session expiry, and cancellation
-were covered by mocked tests and were not repeated against production.
+이 결과는 실제 OAuth 인증, 접근 권한이 있는 플러그인 목록 조회, Notion 원본 압축 파일 다운로드가 동작했음을 보여 줍니다. 모든 워크스페이스에서 사용할 수 있다는 뜻은 아닙니다. 공유하지 않은 페이지의 접근 거부, 토큰 취소, 세션 만료, 인증 취소는 모의 응답 테스트로 확인했으며 운영 환경에서 반복하지 않았습니다.
 
-## Evaluation boundary
+## 검증 범위와 남은 평가
 
-Authored output previews are explicitly labeled as examples. No Notion AI
-response-quality benchmark was run, and the unit tests do not establish an
-improvement in model accuracy. A useful manual review should compare the same
-material with and without the guide, checking whether proposals stay separate
-from decisions, unknown dates stay unknown, totals remain consistent, and the
-result preserves the source evidence.
+화면에 제공하는 결과 미리보기는 직접 작성한 예시임을 명시했습니다. Notion AI 답변 품질을 비교하는 실험은 수행하지 않았으며, 단위 테스트만으로 모델의 정확도가 향상됐다고 판단할 수 없습니다.
 
-Publishing the new catalog changes remains the owner's next step after review.
-Marketplace approval and adoption of the existing policy drafts are separate
-operator tasks; this verification does not change their status.
+수동 평가에서는 같은 자료에 가이드를 적용한 경우와 적용하지 않은 경우를 비교해야 합니다. 제안과 결정이 구분되는지, 알 수 없는 날짜를 임의로 채우지 않는지, 합계가 맞는지, 원문의 근거가 유지되는지를 살펴보는 것이 유용합니다.
+
+검증 당시 새 카탈로그 변경 사항의 공개는 사용자가 검토 후 진행할 작업으로 남겨 두었습니다. 마켓플레이스 승인과 기존 정책 초안의 확정은 별도의 운영 작업이며, 이 검증으로 해당 상태가 바뀌지는 않았습니다.

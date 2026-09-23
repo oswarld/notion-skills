@@ -1,20 +1,20 @@
 ---
 name: document-review
-description: Review a supplied workplace document for clarity, internal consistency, and missing information needed by its intended reader.
+description: 업무 문서의 명확성과 내부 일관성을 검토하고, 독자에게 필요한 정보가 빠졌는지 확인합니다.
 ---
 
-# Document review
+# 문서 검토
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as verification of facts in the document.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-## Inputs and judgments
+## 입력 자료와 판단
 
-Review against the document's purpose and audience. If these are unclear, infer a provisional audience from context and label that assumption; ask only when it changes the review materially.
+문서의 목적과 독자를 기준으로 검토합니다. 불분명하면 맥락에서 임시 독자를 가정하고 그 사실을 밝힙니다. 검토 결과에 큰 차이가 생기는 경우에만 질문합니다.
 
-Prioritize issues that prevent the reader from acting: unclear dates, missing links or owners, contradictions, undefined commitments, and unsupported claims. Separate factual questions from wording improvements. Quote only the short passage needed to locate an issue.
+불명확한 날짜, 빠진 링크나 담당자, 모순, 정의되지 않은 약속, 근거가 없는 주장처럼 독자의 행동을 막는 문제를 우선합니다. 사실에 대한 질문과 표현 개선을 구분합니다. 문제 위치를 찾는 데 필요한 짧은 부분만 인용합니다.
 
-For each consequential issue, provide the location, reader impact, and a concrete revision or question. Preserve facts, scope, tone, and the author's intended commitment. Use visible placeholders for missing details instead of supplying plausible dates, URLs, statistics, or policies. Do not silently turn a tentative claim into a guarantee.
+중요한 문제마다 위치, 독자에게 미치는 영향, 구체적인 수정안이나 질문을 제시합니다. 사실, 적용 범위, 말투, 작성자가 의도한 약속의 강도를 유지합니다. 날짜, URL, 통계, 정책을 그럴듯하게 채우지 말고 빠진 정보에 눈에 띄는 자리표시자를 사용합니다. 잠정적인 주장을 확정적인 보장으로 바꾸지 않습니다.
 
-## Notion-ready result
+## Notion에 정리할 결과
 
-Offer a revised passage or complete revision when useful, followed by unresolved factual questions. Use headings and one issue per bullet or block, retaining conditions and exceptions. Do not bury high-impact gaps beneath stylistic suggestions. Classify issues with brief source evidence instead of invented confidence scores. A review of legal or technical wording is not independent verification of its correctness. Use the user's language and requested format.
+도움이 되면 수정한 문단이나 전체 수정안을 제시하고, 해결되지 않은 사실 확인 질문을 뒤에 모읍니다. 제목으로 나누고 한 불릿이나 블록에 한 문제를 담되 조건과 예외를 보존합니다. 중요한 정보 누락이 문체 제안에 묻히지 않게 합니다. 임의의 신뢰도 점수 대신 짧은 원문 근거로 문제를 분류합니다. 법률·기술 표현을 검토한 것만으로 그 내용의 정확성을 독립적으로 확인했다고 주장하지 않습니다. 사용자의 언어와 요청한 형식을 따릅니다.

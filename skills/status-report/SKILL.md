@@ -1,16 +1,16 @@
 ---
 name: status-report
-description: Turn progress notes into a concise stakeholder report separating completed outcomes, work in progress, blockers, and decisions.
+description: 진행 기록을 바탕으로 완료한 결과, 진행 중인 일, 막힌 점, 필요한 결정을 구분한 짧은 업무 보고를 작성합니다.
 ---
 
-# Status report
+# 주간 업무 보고
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Identify the reporting period and audience. Distinguish completed and accepted deliverables from drafts, meetings, effort, and planned work. Do not upgrade "written" to "reviewed," "sent" to "approved," or "started" to "done."
+보고 기간과 독자를 확인합니다. 완료하고 검토까지 마친 결과물을 초안, 회의, 투입 노력, 계획 중인 작업과 구분합니다. 작성한 것을 검토 완료로, 보낸 것을 승인 완료로, 시작한 것을 완료로 바꾸지 않습니다.
 
-Lead with decisions or blockers that need attention when those are the purpose of the report. Summarize outcomes, ongoing work, schedule or scope risks, support needed, and next steps. Keep owners and due dates tied to the provided record.
+보고 목적이 의사결정이나 문제 해결이라면 필요한 결정이나 막힌 점을 앞에 둡니다. 결과, 진행 중인 작업, 일정·범위의 위험, 필요한 지원, 다음 단계를 요약합니다. 담당자와 기한은 제공된 기록에 있는 값만 사용합니다.
 
-Use metrics only with a clear unit and denominator. If six of ten items have drafts, report draft coverage and review status separately; do not present overall completion as 60 percent without an agreed definition. Mark unknown baselines or dates.
+지표는 단위와 분모가 분명할 때만 사용합니다. 10개 항목 중 6개의 초안을 작성했다면 초안 작성 비율과 검토 상태를 나누어 보고합니다. 합의된 정의 없이 전체 완료율을 60%로 표시하지 않습니다. 알 수 없는 기준값과 날짜를 표시합니다.
 
-Connect each request to the person or role who can act, if known, and explain the consequence of delay without inventing impact. Return a short report suitable for the requested audience, plus unresolved internal questions when useful. Do not send the report or change project status automatically. Use the user's language.
+요청에 응할 사람이나 역할을 알면 함께 적습니다. 지연의 영향을 설명하되 근거가 없는 영향을 만들어 넣지 않습니다. 독자에게 맞는 짧은 보고문을 작성하고, 도움이 되면 해결되지 않은 내부 질문을 별도로 둡니다. 보고를 자동 발송하거나 프로젝트 상태를 변경하지 않습니다. 사용자의 언어로 답합니다.

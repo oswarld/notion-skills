@@ -1,77 +1,43 @@
-# Starter catalog research and release plan
+# 기본 스킬 카탈로그 조사와 공개 계획
 
-Reviewed on 2026-09-22. This is a qualitative review of public category pages,
-not a market-size study, ranking, or exhaustive inventory. Counts varied between
-the homepage and cached category pages, so they were not used to rank demand.
-No third-party template content was copied into the authored skills.
+2026년 9월 22일에 공개된 카테고리 페이지를 살펴보고 정리한 기록입니다. 시장 규모 조사나 순위 분석, 전체 템플릿 목록 조사는 아닙니다. 홈페이지와 캐시된 카테고리 페이지의 개수가 달라, 개수로 수요의 순위를 매기지 않았습니다. 직접 작성한 스킬에 다른 제작자의 템플릿 내용을 복사하지 않았습니다.
 
-## Observed structure
+## 확인한 카테고리 구성
 
-- [Notion's category directory](https://www.notion.com/ko/templates/category)
-  groups templates around work, school, and life. Work includes marketing,
-  operations, HR, product, design, and engineering. The first release focuses on
-  the user's three requested audiences, rather than attempting all domains.
-- [Personal productivity](https://www.notion.com/ko/templates/category/personal-productivity)
-  includes planning, goals, and notes/knowledge. These suggest recurrent jobs
-  involving prioritization and turning unstructured material into usable notes.
-- [Marketing](https://www.notion.com/ko/templates/category/marketing) includes
-  content calendars, campaign briefs, brand guidelines, launch planning, and
-  social media. These suggest clear input-to-output workflows for creators.
-- [Operations](https://www.notion.com/ko/templates/category/operations) includes
-  company goals, planning, SOPs, process guidelines, and competitive analysis.
-  These suggest reusable decision and handoff workflows for teams.
-- [AI Skills](https://www.notion.com/ko/templates/category/ai-skills) exposes
-  writing, summary/organization, and analysis categories. This is a useful
-  task-based discovery axis alongside audience, not proof of adoption.
+- [Notion 카테고리 목록](https://www.notion.com/ko/templates/category)은 템플릿을 업무, 학교, 생활 중심으로 분류합니다. 업무에는 마케팅, 운영, 인사, 제품, 디자인, 엔지니어링 등이 포함됩니다. 첫 공개 범위는 사용자가 요청한 세 사용자군을 중심으로 정했습니다.
+- [개인 생산성](https://www.notion.com/ko/templates/category/personal-productivity)에는 계획, 목표, 메모·지식 정리가 포함됩니다. 이 구성에서 우선순위를 정하고 정리되지 않은 자료를 활용 가능한 메모로 바꾸는 반복 업무를 도출했습니다.
+- [마케팅](https://www.notion.com/ko/templates/category/marketing)에는 콘텐츠 일정, 캠페인 기획서, 브랜드 가이드, 출시 계획, 소셜 미디어 등이 포함됩니다. 이를 바탕으로 크리에이터가 입력 자료와 원하는 결과를 분명하게 정할 수 있는 업무 흐름을 검토했습니다.
+- [운영](https://www.notion.com/ko/templates/category/operations)에는 회사 목표, 계획, 표준 업무 절차, 프로세스 안내, 경쟁 분석 등이 포함됩니다. 이를 바탕으로 팀이 반복해서 사용할 판단 기준과 업무 인계 방식을 검토했습니다.
+- [AI 스킬](https://www.notion.com/ko/templates/category/ai-skills)에는 글쓰기, 요약·정리, 분석 카테고리가 있습니다. 사용자군과 함께 업무 종류로 스킬을 찾게 하는 데 참고할 수 있지만, 실제 이용 규모를 보여 주는 근거는 아닙니다.
 
-## Product inference and implemented scope
+## 조사에서 도출한 방향과 구현 범위
 
-Use two independent filters: audience and job type. Cross-list a skill when it
-serves more than one audience. Show the expected result, example inputs, and an
-authored example output before asking for authentication or an installation.
-The browser composer assembles a request; it does not execute a model.
+사용자군과 업무 종류를 각각 독립된 필터로 제공합니다. 여러 사용자군에 도움이 되는 스킬은 각 사용자군에서 함께 찾을 수 있게 합니다. 로그인이나 설치를 요구하기 전에 예상 결과, 입력 예시, 직접 작성한 결과 예시를 보여 줍니다. 브라우저의 요청문 생성기는 지침과 자료를 조합하며, AI 모델을 실행하지는 않습니다.
 
-| Initial audience | Five starting workflows |
+| 첫 공개 대상 | 사용자군별 기본 업무 5개 |
 | --- | --- |
-| Office workers | Meeting notes, document review, email drafting, weekly planning, research summary |
-| Solo businesses and creators | Content calendar, repurposing, campaign brief, customer reply, feedback analysis |
-| Team managers | Project plan, status report, decision brief, SOP, onboarding |
+| 일반 직장인 | 회의록 정리, 문서 검토, 이메일 작성, 이번 주 할 일 정리, 자료 요약·비교 |
+| 1인 사업자·크리에이터 | 콘텐츠 일정 만들기, 콘텐츠 재구성, 캠페인 기획서, 고객 문의 답변, 고객 의견 묶어 보기 |
+| 팀 관리자 | 프로젝트 실행 계획, 주간 업무 보고, 선택지 비교·결정 메모, 업무 매뉴얼 만들기, 새 팀원 온보딩 |
 
-Each workflow has an original English `skills/<name>/SKILL.md` and Korean
-discovery/input/example copy in `web/catalog-data.ts`. SKILL.md is the source
-for both the browser's detailed instructions and the individual ZIP download.
-The existing Notion-to-GitHub sync remains separate; starter skills are not
-automatically inserted into a workspace or its marketplace repository.
+조사 당시 각 업무의 원본 지침은 영문 `skills/<name>/SKILL.md`에, 한국어 검색·입력·결과 예시 문구는 `web/catalog-data.ts`에 작성했습니다. `SKILL.md`는 브라우저의 상세 지침과 개별 ZIP 다운로드에 공통으로 사용했습니다. 이후 추가한 판단 가이드의 구성과 검증 결과는 [판단 가이드 검증 기록](decision-guide-verification.md)을 참고하세요.
 
-## Distribution and adoption
+기존 Notion → GitHub 동기화는 별도 기능으로 유지합니다. 기본 스킬을 사용자의 워크스페이스나 마켓플레이스 저장소에 자동으로 추가하지 않습니다.
 
-1. Immediate trial: choose a skill, use an example or supply material, copy the
-   request into an existing AI conversation. This conveys instructions for that
-   conversation; it does not install a native skill or MCP server.
-2. Reuse: download an individual skill ZIP. Claude documents ZIP folder upload
-   through Customize > Skills. Account settings can restrict this feature.
-   [Official upload instructions](https://support.claude.com/en/articles/12512180-use-skills-in-claude).
-3. Existing workspace content: retain the OAuth library/download flow. Native
-   Notion template duplication and an MCP endpoint are future integrations, not
-   buttons that currently claim to work.
+## 배포 방식과 사용 흐름
 
-## Before a public launch
+1. **바로 사용하기:** 스킬을 고르고 예시나 직접 입력한 자료로 요청문을 만든 뒤, 사용 중인 AI 대화에 복사합니다. 해당 대화에 작업 지침을 전달하는 방식이며, 앱에 스킬이나 MCP 서버를 설치하는 과정은 아닙니다.
+2. **반복해서 사용하기:** 개별 스킬 ZIP을 내려받습니다. 조사 당시 Claude의 공식 안내는 `Customize > Skills`에서 ZIP 파일을 올리는 방식을 설명했습니다. 계정 설정에 따라 이 기능이 제한될 수 있습니다. [공식 업로드 안내](https://support.claude.com/en/articles/12512180-use-skills-in-claude)를 참고하세요.
+3. **기존 워크스페이스 자료 사용하기:** OAuth로 연결한 스킬의 조회·다운로드 흐름을 유지합니다. Notion 템플릿 복제와 MCP 연결 주소 제공은 향후 연동 후보로 두며, 구현된 기능처럼 표시하지 않습니다.
 
-- Run an actual skill task in a target AI for each audience; assess factual
-  faithfulness and usefulness, not just file validity. UI example outputs are
-  authored illustrations, not recorded model evaluations.
-- Observe a new user finding a skill, supplying material, getting a first usable
-  answer, and reusing the skill without terminal instructions. Record the
-  friction and first-result time before choosing further automation work.
-- Verify a real Claude upload and activation; ZIP structure tests alone do not
-  prove installation in a customer's account.
-- Verify the real Notion OAuth exchange, workspace isolation, and Skills API
-  availability. On 2026-09-22 the user-created public connection was observed
-  with the correct production callback. Read, update, insert, and comment
-  capabilities were enabled. Review the intended scope before onboarding
-  users; this web implementation only reads skills and revokes tokens.
-- Decide whether the next integration should be a duplicable Notion starter
-  database or a remote MCP connector based on those trials. Avoid making
-  beginners configure a server or obtain API tokens.
+## 공개 전 검증 항목
 
-No repository publication or production deployment is part of this iteration.
+아래는 조사 당시 정한 검증 항목입니다. 이후 진행한 OAuth와 Skills API 검증은 [판단 가이드 검증 기록](decision-guide-verification.md)에 별도로 정리했습니다.
+
+- 사용자군마다 실제 AI에서 스킬을 실행하고, 원문을 충실히 반영하는지와 업무에 도움이 되는지 평가합니다. 파일 형식이 올바르다는 사실만으로 품질을 판단하지 않습니다. 화면의 결과 예시는 직접 작성한 설명용 예시이며, 모델 평가 결과가 아닙니다.
+- 처음 사용하는 사람이 스킬을 찾고, 자료를 넣고, 활용할 수 있는 첫 답변을 얻고, 터미널 안내 없이 다시 사용하는 과정을 관찰합니다. 다음 자동화 작업을 정하기 전에 막히는 지점과 첫 결과를 얻기까지 걸린 시간을 기록합니다.
+- 실제 Claude 계정에서 업로드와 활성화를 확인합니다. ZIP 구조 검사만으로 사용자 계정에서 설치할 수 있다고 판단하지 않습니다.
+- 실제 Notion OAuth 인증, 워크스페이스 간 접근 분리, Skills API 사용 가능 여부를 확인합니다. 2026년 9월 22일에는 사용자가 만든 공개 연결에 올바른 운영 콜백 주소가 설정된 것을 확인했습니다. 당시에는 읽기·수정·추가·댓글 권한이 활성화되어 있어, 사용자 안내 전에 서비스에 필요한 권한 범위를 검토하도록 했습니다. 이 웹 서비스가 수행하는 작업은 스킬 읽기와 토큰 취소입니다.
+- 사용 결과를 바탕으로 복제 가능한 Notion 기본 데이터베이스와 원격 MCP 연결 중 다음 연동 대상을 정합니다. 처음 사용하는 사람에게 서버 설정이나 API 토큰 발급을 요구하지 않는 방향으로 검토합니다.
+
+이 조사·구현 작업 당시에는 저장소에 변경 사항을 게시하거나 운영 환경에 배포하지 않았습니다.

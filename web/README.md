@@ -1,159 +1,94 @@
-# INLEVEL9 Skills browser service
+# INLEVEL9 Skills 웹 서비스
 
-Production website: https://skills.inlevel9.com
+- 운영 웹사이트: [INLEVEL9 Skills](https://skills.inlevel9.com)
+- 운영 OAuth 콜백: [Notion 인증 콜백 주소](https://skills.inlevel9.com/auth/notion/callback)
 
-Production OAuth callback: https://skills.inlevel9.com/auth/notion/callback
+기존 Bun CLI와 별도로 실행하는 웹 서비스입니다. 기본 `Request`·`Response` 처리기와 서버에서 렌더링한 HTML을 사용합니다. 프런트엔드 프레임워크, 데이터베이스, 분석 SDK, 추가 실행 의존성을 도입하지 않았습니다.
 
-This is a separate entry point alongside the existing Bun CLI. It uses native
-Request/Response handlers and server-rendered HTML, without a frontend framework,
-database, analytics SDK, or additional runtime dependencies.
+## 기본 스킬 사용 흐름
 
-## Starter skill flow
+1. `/catalog`에서 업무를 검색합니다. 필요하면 사용자군과 작업 종류로 결과를 좁힙니다.
+2. 스킬을 열어 필요한 입력과 직접 작성한 결과 예시를 확인합니다.
+3. 판단 질문, 기준, 정보가 부족할 때의 처리 방식, 결과 구조를 살펴봅니다. 업무의 우선순위나 팀 용어는 원문과 구분해 추가할 수 있습니다.
+4. 자료를 붙여넣거나 예시를 사용하거나 현재 Notion 페이지를 선택한 뒤 요청문을 만들고 복사합니다.
+5. Notion AI나 사용 중인 AI 대화에 붙여넣습니다. Claude 등 호환되는 앱에 설치하려면 개별 스킬 ZIP을 내려받습니다.
 
-1. Open `/catalog`, search by job, and optionally filter audience and category.
-2. Open a skill to see required inputs and a clearly labeled authored example.
-3. For every starter skill, inspect the decision questions,
-   criteria, unknown handling, and output structure. Optionally add work-specific
-   priorities or terminology separately from the source material.
-4. Paste material, try the example, or select the current Notion page. Compose and copy a request.
-5. Paste into Notion AI or another existing AI conversation, or download an individual skill ZIP
-   for installation in a compatible app such as Claude.
+이 사이트는 모델을 실행하지 않습니다. 입력한 내용은 브라우저 메모리에서 조합하며, 서버로 제출하거나 로컬 저장소에 보관하거나 외부 API로 전송하지 않습니다. 검색어는 GET 매개변수이므로 브라우저 기록이나 호스팅 로그에 남을 수 있습니다. 클립보드 API를 사용할 수 없으면 요청문 전체를 선택해 직접 복사하도록 안내합니다. 자료나 추가 기준을 수정하면 이전 요청문을 무효화해 오래된 내용을 복사하지 않도록 합니다.
 
-No model runs on this site. Input text is combined in browser memory and is not
-submitted, persisted in local storage, or sent to an external API. Search terms
-are GET parameters and can appear in browser history or hosting logs. The copy
-button has a selection fallback when the clipboard API is unavailable. Editing
-inputs or additional criteria invalidates the old request so users do not copy stale material.
+원본 작업 지침은 `skills/<name>/SKILL.md`에, 화면 표시 정보는 `catalog-data.ts`에 있습니다. 미리 정의한 카탈로그 식별자에 해당하는 파일만 읽습니다. `vercel.json`이 이 파일들을 함수 배포 묶음에 포함합니다. ZIP은 기존 `fflate` 의존성으로 만들며, 이를 위해 새 실행 의존성을 추가하지 않았습니다.
 
-The source instructions live in `skills/<name>/SKILL.md`; presentation metadata
-is in `catalog-data.ts`. Files are loaded only for predefined catalog IDs, and
-`vercel.json` includes them in the function bundle. The existing `fflate`
-dependency produces each ZIP; no new runtime dependency was introduced.
+판단 가이드 15개는 각각 `skills/<name>/references/decision-guide.yaml`에 있습니다. 모든 기본 스킬에 이 고정 경로의 파일이 필요합니다. 로더는 각 질문의 기준과 정보 부족 처리 방식을 검증하고, 같은 원본으로 화면·요청문·ZIP을 구성합니다.
 
-All 15 decision guides live in `skills/<name>/references/decision-guide.yaml`.
-Every authored catalog entry requires this fixed reference path.
-The loader validates each question's criteria and unknown handling, then uses
-the same reference for the rendered UI, inline prompt instructions, and ZIP.
-The ZIP contains the original `SKILL.md` and its reference. Single-file Markdown
-downloads and composed requests inline the guide and remove the local file link.
-`public/catalog.js` exports the tested, pure `composeRequest` function and initializes
-the DOM separately. Its module script makes no network calls. Current-page mode
-excludes the first (possibly populated but hidden) material field while retaining
-user-authored audience/work conditions. Changing mode or criteria invalidates the
-old request. The site does not retrieve the current Notion page.
+ZIP에는 원본 `SKILL.md`와 참조 파일을 넣습니다. 단일 Markdown 다운로드와 복사할 요청문에는 가이드 내용을 본문에 포함하고 로컬 참조 링크를 제거합니다. 스킬의 설명과 본문은 한국어로 제공하며, `name` 같은 형식 키와 스킬 식별자는 그대로 유지합니다.
 
-## Notion user flow
+`public/catalog.js`는 별도로 테스트한 순수 함수 `composeRequest`를 내보내고, 화면 초기화를 따로 수행합니다. 모듈 스크립트는 네트워크 요청을 하지 않습니다. 현재 페이지 모드에서는 첫 번째 자료 입력란에 내용이 남아 있어도 요청문에서 제외합니다. 독자와 작업 조건은 유지합니다. 모드나 기준을 바꾸면 이전 요청문을 무효화합니다. 사이트가 현재 Notion 페이지를 직접 가져오는 것은 아닙니다.
 
-1. Open the service and choose **Connect with Notion**.
-2. Approve the public connection and select Skills databases in Notion.
-3. View only the plugin bundles visible to that user's connection.
-4. Download a bundle directly from Notion's temporary archive URL.
+## 내 Notion 스킬 연결 흐름
 
-The archive is Notion's original `.tar.gz`, including `SKILL.md` and attachments.
-It is not an automatic installation into an agent app. The CLI marketplace sync
-is unchanged and remains separately configured.
+1. 서비스에서 Notion 연결을 선택합니다.
+2. Notion의 공개 연결에 동의하고 공유할 스킬 데이터베이스를 선택합니다.
+3. 해당 사용자의 연결이 읽을 수 있는 플러그인 묶음만 확인합니다.
+4. Notion이 발급한 임시 주소에서 원본 압축 파일을 직접 내려받습니다.
 
-Notion requests use `Notion-Version: 2026-03-11`. Listing requests ask for 100
-plugins per page and fail on incomplete or malformed pagination. Plugin IDs are
-treated as opaque strings and encoded for download routes. Each Notion **Tags**
-value groups skills into a plugin; an untagged skill becomes its own plugin.
-A bundle contains at most 100 skills (the most recently updated when there are
-more), per the [get-plugin API](https://developers.notion.com/reference/agent-skills/get-plugin-directory).
-The connection needs **Read content**; skills not shared with it are omitted.
+압축 파일은 `SKILL.md`와 첨부 파일을 포함한 Notion 원본 `.tar.gz`입니다. AI 앱에 자동 설치되지는 않습니다. CLI의 마켓플레이스 동기화는 별도로 설정해 사용합니다.
 
-## Operator registration
+Notion 요청에는 `Notion-Version: 2026-03-11`을 사용합니다. 플러그인 목록을 페이지당 100개씩 요청하며, 페이지 구분 정보가 불완전하거나 잘못되면 실패로 처리합니다. 플러그인 식별자의 내부 구조를 가정하지 않고 문자열로 다루며, 다운로드 경로에 넣을 때 인코딩합니다.
 
-Create a dedicated connection at https://app.notion.com/developers/connections:
+Notion의 **Tags** 값마다 스킬이 하나의 플러그인으로 묶입니다. 태그가 없는 스킬은 단독 플러그인이 됩니다. [플러그인 파일 조회 API](https://developers.notion.com/reference/agent-skills/get-plugin-directory)에 따라 한 묶음에는 최대 100개 스킬이 포함되며, 초과하면 최근 수정된 스킬부터 포함됩니다. 연결에는 **Read content** 권한이 필요합니다. 연결에 공유하지 않은 스킬은 목록에 나오지 않습니다.
 
-- Name: `INLEVEL9 Skills`.
-- Authentication: OAuth.
-- Installation scope: Any workspace.
-- Redirect URI: `${WEB_BASE_URL}/auth/notion/callback`.
-- Capabilities: Read content only; no content writes, comments, or user email.
-- Do not modify or rotate an existing unrelated connection.
+## 운영자용 연결 등록
 
-Connection creation may require accepting Notion's developer terms. The account
-owner must authorize that action. Marketplace listing is a separate optional
-process; the OAuth authorization URL does not require a marketplace listing.
+[Notion 연결 관리](https://app.notion.com/developers/connections)에서 전용 연결을 만듭니다.
 
-Configure the following **server-side** environment variables in the deployment:
+- 이름: `INLEVEL9 Skills`.
+- 인증 방식: OAuth.
+- 설치 범위: `Any workspace`(모든 워크스페이스).
+- 리디렉션 주소: `${WEB_BASE_URL}/auth/notion/callback`.
+- 권한: `Read content`만 사용합니다. 콘텐츠 쓰기, 댓글, 사용자 이메일 권한은 요청하지 않습니다.
+- 이 서비스와 관계없는 기존 연결을 수정하거나 인증 정보를 교체하지 않습니다.
 
-| Variable | Value |
+연결을 만들 때 Notion 개발자 약관 동의가 필요할 수 있습니다. 해당 동의는 계정 소유자의 승인이 필요합니다. 마켓플레이스 등록은 별도의 선택 절차이며, OAuth 인증 주소를 사용하기 위해 반드시 등록해야 하는 것은 아닙니다.
+
+배포 환경에 다음 **서버용 환경변수**를 설정합니다.
+
+| 환경변수 | 값 |
 | --- | --- |
-| `WEB_BASE_URL` | `https://skills.inlevel9.com` in production |
-| `NOTION_OAUTH_CLIENT_ID` | Public connection client ID |
-| `NOTION_OAUTH_CLIENT_SECRET` | Public connection client secret |
-| `WEB_SESSION_KEY` | 32 cryptographically random bytes as 64 hex characters |
+| `WEB_BASE_URL` | 운영 환경에서는 `https://skills.inlevel9.com` |
+| `NOTION_OAUTH_CLIENT_ID` | 공개 연결의 클라이언트 식별자 |
+| `NOTION_OAUTH_CLIENT_SECRET` | 공개 연결의 클라이언트 비밀값 |
+| `WEB_SESSION_KEY` | 암호학적으로 안전한 32바이트 난수를 64자리 16진수로 표현한 값 |
 
-Generate the encryption key with `openssl rand -hex 32`. Never commit credentials
-or expose them in browser code. For development use `.env` (gitignored),
-`WEB_BASE_URL=http://localhost:3000`, and register that callback separately.
-Configuration remains environment-only; `vercel.json` contains routing/build
-instructions, not connection settings.
+암호화 키는 `openssl rand -hex 32`로 생성합니다. 인증 정보를 커밋하거나 브라우저 코드에 노출하지 않습니다. 개발 환경에서는 Git 추적 대상에서 제외한 `.env`에 `WEB_BASE_URL=http://localhost:3000`을 설정하고, 해당 콜백 주소를 별도로 등록합니다. 연결 설정은 환경변수로만 관리합니다. `vercel.json`에는 경로 처리와 빌드 설정을 둡니다.
 
-## Deployment and verification
+## 배포와 검증
 
-`/terms` and `/privacy` currently serve review drafts adapted from the existing
-INLEVEL9 policies. Confirm the operator's intended terms, effective dates,
-provider retention, and overseas processing details before publishing them as
-effective policies. See `docs/marketplace-listing.md` for the remaining items.
-Both review pages are publicly reachable from the shared footer as of
-2026-09-22; they have not been adopted as final policies.
+`/terms`와 `/privacy`는 기존 INLEVEL9 정책을 참고한 검토용 초안입니다. 정책을 확정해 공개하기 전에 운영자의 이용 조건, 시행일, 외부 서비스의 보관 기간, 국외 처리 내용을 확인해야 합니다. 남은 항목은 [마켓플레이스 등록 기록](../docs/marketplace-listing.md)을 참고하세요. 2026년 9월 22일 기준 두 검토 페이지는 공통 푸터에서 열렸으며, 최종 정책으로 확정된 상태는 아니었습니다.
 
-`vercel.json` deploys `api/index.ts` with the existing Bun dependencies and serves
-CSS, logo, and the catalog script from `public/`. Run `bun run typecheck` and `bun test` before deploying. The
-production origin must match `WEB_BASE_URL` exactly; preview domains cannot
-silently become OAuth callbacks.
+`vercel.json`은 기존 Bun 의존성과 함께 `api/index.ts`를 배포하고, `public/`에서 CSS·로고·카탈로그 스크립트를 제공합니다. 배포 전 `bun run typecheck`와 `bun test`를 실행하세요. 운영 출처는 `WEB_BASE_URL`과 정확히 일치해야 합니다. 미리보기 도메인이 자동으로 OAuth 콜백 주소를 대신하지 않습니다.
 
-`GET /health` returns `200 {"status":"ready"}` when settings are present or
-`503 {"status":"setup_required"}` otherwise. This is configuration readiness,
-not proof that a real OAuth exchange succeeded.
+`GET /health`는 설정이 준비되면 `200 {"status":"ready"}`, 그렇지 않으면 `503 {"status":"setup_required"}`를 반환합니다. 이는 설정 준비 여부이며 실제 OAuth 인증 성공을 증명하지는 않습니다.
 
-Before announcing the service as ready for users, verify in a real browser:
+사용자에게 준비 완료를 안내하기 전에 실제 브라우저에서 다음을 확인합니다.
 
-1. The authorization page shows the correct connection and read-only scope.
-2. Consent returns to `/skills` with a Secure, HttpOnly session cookie.
-3. A known shared Skills database appears; non-shared content does not.
-4. A download contains the expected skill files.
-5. Cancellation and revocation behave as described.
+1. 인증 화면에 올바른 연결과 읽기 권한만 표시되는지 확인합니다.
+2. 동의 후 `/skills`로 돌아오며 세션 쿠키에 `Secure`, `HttpOnly` 속성이 적용되는지 확인합니다.
+3. 공유한 스킬 데이터베이스가 표시되고 공유하지 않은 콘텐츠는 표시되지 않는지 확인합니다.
+4. 내려받은 파일에 예상한 스킬 파일이 있는지 확인합니다.
+5. 인증 취소와 연결 해제가 안내한 대로 동작하는지 확인합니다.
 
-The tests exercise the real HTTP handler with a fake Notion transport: state
-binding/expiry, encryption tampering, cross-user isolation, XSS, CSRF,
-pagination, permission failures, signed downloads, and revocation errors. They
-cannot establish workspace Skills API availability or Notion console settings.
+테스트에서는 모의 Notion 응답으로 실제 HTTP 처리기를 실행합니다. 인증 상태의 연결·만료, 암호문 변조, 사용자 간 접근 분리, XSS, CSRF, 페이지 구분, 권한 오류, 서명된 다운로드 주소, 토큰 취소 오류를 확인합니다. 이 테스트만으로 워크스페이스의 Skills API 사용 가능 여부나 Notion 관리 화면 설정을 확인할 수는 없습니다.
 
-On 2026-09-23, the existing production deployment completed a real OAuth
-callback, listed the previously shared verification skill, and downloaded an
-archive containing its `SKILL.md` and expected marker. The new decision-guide
-changes remain local. See [verification evidence](../docs/decision-guide-verification.md)
-for the tested behavior and remaining evaluation boundaries.
+2026년 9월 23일에는 기존 운영 서비스에서 실제 OAuth 콜백, 미리 공유한 검증용 스킬 조회, `SKILL.md`와 검증 표식을 포함한 압축 파일 다운로드를 확인했습니다. 새 판단 가이드 변경 사항은 검증 당시 로컬에만 있었습니다. 자세한 동작과 검증 범위는 [검증 기록](../docs/decision-guide-verification.md)을 참고하세요.
 
-## Security and data lifecycle
+## 보안과 데이터 처리
 
-- OAuth code exchange occurs only on the server. `state` is random, expires in
-  ten minutes, and is bound to an encrypted cookie in the initiating browser.
-- AES-256-GCM cookies bind ciphertext to its purpose and canonical origin.
-  Production cookies use `__Host-`, Secure, HttpOnly, SameSite=Lax, and Path=/.
-- Sessions expire after eight hours. Only the access token and minimal workspace
-  metadata are retained, encrypted in the cookie. Refresh tokens are intentionally
-  discarded: there is no unattended web worker or long-lived server token store.
-  Expired/revoked Notion access requires a new browser sign-in.
-- Logout deletes the local cookie. Disconnect revokes the Notion access token
-  before deleting the cookie; a failed revocation is shown as a failure.
-- Mutating routes require a same-origin POST. HTML, redirects, and private
-  responses are never cached. OAuth pages forbid scripts. Only starter detail
-  pages allow same-origin scripts; their CSP blocks network connections and form
-  submissions. All pages forbid framing and third-party forms.
-- Plugin names/descriptions are escaped. Downloads recheck the current user's
-  accessible plugin list before requesting a signed URL from Notion. Archives
-  are not downloaded or decompressed on this shared service.
-- No Notion content, passwords, or tokens are logged by the application. Hosting
-  request logs may still contain IPs and request paths; keep provider access and
-  retention restricted. Do not add request URL/query logging to OAuth callbacks.
-- Rotating `WEB_SESSION_KEY` invalidates all browser sessions; it does not revoke
-  Notion grants. The service has no application database or global token store.
+- OAuth 인증 코드는 서버에서만 교환합니다. 무작위 `state` 값은 10분 뒤 만료되며, 인증을 시작한 브라우저의 암호화된 쿠키에 연결됩니다.
+- AES-256-GCM 쿠키는 암호문을 용도와 기준 출처에 묶습니다. 운영 쿠키에는 `__Host-` 접두사, `Secure`, `HttpOnly`, `SameSite=Lax`, `Path=/`를 사용합니다.
+- 로그인 세션은 8시간 뒤 만료됩니다. 접근 토큰과 최소한의 워크스페이스 정보만 암호화된 쿠키에 보관합니다. 갱신 토큰은 보관하지 않으며, 상시 실행 웹 작업이나 장기 토큰 저장소를 두지 않습니다. 토큰이 만료되거나 취소되면 브라우저에서 다시 로그인해야 합니다.
+- 로그아웃은 브라우저 쿠키를 지웁니다. 연결 해제는 Notion 접근 토큰을 취소한 뒤 쿠키를 지웁니다. 토큰 취소가 실패하면 실패로 표시합니다.
+- 상태를 변경하는 경로는 같은 출처의 POST 요청만 허용합니다. HTML, 리디렉션, 비공개 응답은 캐시하지 않습니다. OAuth 페이지는 스크립트를 허용하지 않습니다. 기본 스킬 상세 페이지에서만 같은 출처의 스크립트를 허용하며, CSP로 네트워크 연결과 폼 제출을 막습니다. 모든 페이지에서 프레임 삽입과 외부 출처로의 폼 제출을 막습니다.
+- 플러그인 이름과 설명은 HTML 이스케이프 처리합니다. 다운로드할 때 현재 사용자가 접근할 수 있는 목록을 다시 확인한 뒤 Notion에 서명된 주소를 요청합니다. 웹 서버는 압축 파일을 내려받거나 압축을 풀지 않습니다.
+- 애플리케이션은 Notion 내용, 비밀번호, 토큰을 로그에 기록하지 않습니다. 호스팅 요청 로그에는 IP와 요청 경로가 남을 수 있으므로 접근 권한과 보관 기간을 제한합니다. OAuth 콜백에 요청 URL이나 쿼리를 기록하는 로그를 추가하지 않습니다.
+- `WEB_SESSION_KEY`를 교체하면 모든 브라우저 세션이 무효화됩니다. Notion에서 부여한 권한 자체가 취소되는 것은 아닙니다. 서비스에는 애플리케이션 데이터베이스나 공용 토큰 저장소가 없습니다.
 
-Official references: [Notion public connections](https://developers.notion.com/guides/get-started/public-connections),
-[authorization](https://developers.notion.com/guides/get-started/authorization),
-[Skills API](https://developers.notion.com/guides/agent-skills/overview), and
-[token revocation](https://developers.notion.com/reference/revoke-token).
+공식 참고 문서: [Notion 공개 연결](https://developers.notion.com/guides/get-started/public-connections), [인증](https://developers.notion.com/guides/get-started/authorization), [Skills API](https://developers.notion.com/guides/agent-skills/overview), [토큰 취소](https://developers.notion.com/reference/revoke-token).

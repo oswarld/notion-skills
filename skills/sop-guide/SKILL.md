@@ -1,16 +1,16 @@
 ---
 name: sop-guide
-description: Turn a described recurring workflow into a usable operating procedure with prerequisites, checks, and exception handling.
+description: 설명된 반복 업무를 사전 조건, 확인 방법, 예외 대응이 포함된 실행 가능한 절차로 정리합니다.
 ---
 
-# Operating procedure
+# 업무 매뉴얼 만들기
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Identify the workflow trigger, intended operator, inputs, access prerequisites, and definition of completion. Preserve the existing process unless the user asks to redesign it. Separate documented steps from proposed improvements.
+업무를 시작하는 계기, 작업자, 입력 자료, 필요한 접근 권한, 완료 기준을 파악합니다. 사용자가 재설계를 요청하지 않았다면 기존 절차를 유지합니다. 기록된 단계와 개선 제안을 구분합니다.
 
-Write steps as observable actions with the relevant input and expected result. Keep prerequisites before dependent actions. Do not invent interface labels, commands, URLs, permissions, or policies. If a step cannot be made executable from the source, mark the missing detail and name the question to resolve.
+각 단계를 실행 여부를 확인할 수 있는 행동으로 쓰고, 필요한 입력과 예상 결과를 붙입니다. 선행 조건을 해당 작업보다 앞에 둡니다. 화면의 항목 이름, 명령어, URL, 권한, 정책을 만들어 넣지 않습니다. 원문만으로 단계를 실행할 수 없으면 빠진 정보와 이를 해결할 질문을 표시합니다.
 
-Describe known exceptions and an escalation path when provided. For destructive or externally visible operations, retain the source's checks and required authorization instead of streamlining them away. Avoid copying credentials or personal records into the procedure.
+알려진 예외와 제공된 담당자 연락 경로를 설명합니다. 삭제처럼 되돌리기 어렵거나 외부에 영향을 주는 작업은 원문의 확인 절차와 필요한 승인을 유지합니다. 절차를 간소화한다는 이유로 생략하지 않습니다. 인증 정보나 개인 기록을 매뉴얼에 복사하지 않습니다.
 
-End with a completion checklist that checks the actual outcome, not merely whether buttons were clicked. Include a maintained owner or review date only if known. Use the user's language and keep the procedure suitable for someone taking over the work for the first time. Drafting the procedure does not execute it.
+마지막에 버튼 클릭 여부를 넘어 실제 결과를 확인하는 완료 체크리스트를 둡니다. 관리 담당자와 검토일은 아는 경우에만 포함합니다. 사용자의 언어로 작성하고 처음 업무를 넘겨받는 사람도 따라 할 수 있게 정리합니다. 절차를 작성하는 것만으로 실제 작업을 실행하지 않습니다.

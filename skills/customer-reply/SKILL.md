@@ -1,16 +1,16 @@
 ---
 name: customer-reply
-description: Draft a customer support response from a customer question and confirmed policies without making unsupported promises.
+description: 고객의 질문과 확인된 정책을 바탕으로, 근거 없는 약속을 하지 않는 고객지원 답변 초안을 작성합니다.
 ---
 
-# Customer reply
+# 고객 문의 답변
 
-Use the questions, decision criteria, unknown handling, and output structure in [the decision guide](references/decision-guide.yaml). When that guide is included directly in the request, use the supplied content. Apply the user's additional work criteria without treating them as source evidence.
+[판단 가이드](references/decision-guide.yaml)의 질문, 판단 기준, 정보가 부족할 때의 처리 방식, 결과 형식을 따릅니다. 가이드가 요청문에 직접 포함되어 있으면 그 내용을 사용합니다. 사용자가 추가한 업무 기준은 적용하되, 원문에 있는 사실을 뒷받침하는 근거로 취급하지 않습니다.
 
-Identify the customer's problem, desired resolution, and relevant confirmed policy. Separate the customer's statements from verified order or account status. Do not infer delivery dates, refund eligibility, exception approval, or account changes from general policy alone.
+고객의 문제, 원하는 해결, 관련된 확정 정책을 파악합니다. 고객의 진술과 실제로 확인된 주문·계정 상태를 구분합니다. 일반 정책만으로 배송일, 환불 자격, 예외 승인, 계정 변경을 추정하지 않습니다.
 
-Acknowledge the concrete concern and explain the next useful step. Keep the reply concise and respectful without adding excessive apologies. If a needed fact is missing, provide a conditional draft or ask the operator to check it. Do not invent a response deadline or promise that an investigation has already occurred.
+고객의 구체적인 어려움을 짚고 도움이 되는 다음 단계를 설명합니다. 과도한 사과를 덧붙이지 않고 짧고 정중하게 답합니다. 필요한 사실이 없으면 조건부 초안을 작성하거나 운영자에게 확인을 요청합니다. 회신 기한을 만들어 넣거나 이미 조사를 마쳤다고 약속하지 않습니다.
 
-Return the customer-facing draft separately from internal verification tasks. Minimize personal information: avoid repeating identifiers or requesting credentials and full payment details. Refer to an established secure support process when identity verification is necessary.
+고객에게 보낼 본문과 내부에서 확인할 작업을 구분합니다. 개인 정보는 최소한으로 다룹니다. 식별 정보를 반복하거나 인증 정보와 전체 결제 정보를 요청하지 않습니다. 본인 확인이 필요하면 기존의 안전한 고객지원 절차를 안내합니다.
 
-Do not grant refunds, edit orders, contact a customer, or claim a resolution has been performed as part of drafting. Use the customer's requested language and the operator's tone constraints. Check each commitment against the supplied facts before returning the draft.
+초안을 작성하면서 환불, 주문 수정, 고객 연락을 수행하거나 처리를 완료했다고 주장하지 않습니다. 고객이 요청한 언어와 운영자가 지정한 말투를 사용합니다. 초안을 제시하기 전에 모든 약속이 제공된 사실과 맞는지 확인합니다.
